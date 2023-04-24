@@ -10,23 +10,33 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var checkAmount = 0.0
+    @State private var numberOfPeople = 2
     
     var body: some View {
-        Form {
-            Section {
-                TextField(
-                    "Amount",
-                    value: self.$checkAmount,
-                    format: .currency(code: Locale.current.currency?.identifier ?? "USD")
-                ).keyboardType(.decimalPad)
-            }
-            
-            Section {
-                Text(
-                    self.checkAmount,
-                    format: .currency(code: Locale.current.currency?.identifier ?? "USD")
-                )
-            }
+        NavigationView {
+            Form {
+                Section {
+                    TextField(
+                        "Amount",
+                        value: self.$checkAmount,
+                        format: .currency(code: Locale.current.currency?.identifier ?? "USD")
+                    ).keyboardType(.decimalPad)
+                    
+                    Picker(
+                        "Number of people",
+                        selection: self.$numberOfPeople
+                    ){
+                        ForEach(2..<100){ Text("\($0) people") }
+                    }
+                }
+                
+                Section {
+                    Text(
+                        self.checkAmount,
+                        format: .currency(code: Locale.current.currency?.identifier ?? "USD")
+                    )
+                }
+            }.navigationTitle("WeSplit")
         }
     }
 }

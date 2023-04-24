@@ -10,10 +10,21 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var checkAmount = 0.0
+    
+    let numbersOfPeople = Array(2..<100)
     @State private var numberOfPeople = 2
     
     let tipPercentages = [0, 10, 15, 20, 25, 30]
     @State private var tipPercentage = 20
+    
+    var amountPerPerson: Double {
+        let tipPercentage = Double(self.tipPercentage)
+        let tipAmount = self.checkAmount / 100 * tipPercentage
+        let grandTotal = self.checkAmount + tipAmount
+        let personCount = Double(self.numberOfPeople)
+        let totalPerPerson = grandTotal / personCount
+        return totalPerPerson
+    }
     
     var body: some View {
         NavigationView {
@@ -25,12 +36,12 @@ struct ContentView: View {
                         format: .currency(code: Locale.current.currency?.identifier ?? "USD")
                     ).keyboardType(.decimalPad)
                     
-                    Picker(
-                        "Number of people",
-                        selection: self.$numberOfPeople
-                    ){
-                        ForEach(2..<100){ Text("\($0) people") }
-                    }.pickerStyle(.navigationLink)
+                    Picker("Number of people", selection: self.$numberOfPeople) {
+                        ForEach(self.numbersOfPeople, id: \.self) {
+                            Text("\($0) people")
+                        }
+                    }
+                        .pickerStyle(.navigationLink)
                 }
                 
                 Section {
@@ -48,7 +59,7 @@ struct ContentView: View {
                 
                 Section {
                     Text(
-                        self.checkAmount,
+                        self.amountPerPerson,
                         format: .currency(code: Locale.current.currency?.identifier ?? "USD")
                     )
                 }

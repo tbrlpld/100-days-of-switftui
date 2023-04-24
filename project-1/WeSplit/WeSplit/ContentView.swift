@@ -10,6 +10,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var checkAmount = 0.0
+    @FocusState private var amountFieldFocused: Bool
     
     let numbersOfPeople = Array(2..<100)
     @State private var numberOfPeople = 2
@@ -34,7 +35,9 @@ struct ContentView: View {
                         "Amount",
                         value: self.$checkAmount,
                         format: .currency(code: Locale.current.currency?.identifier ?? "USD")
-                    ).keyboardType(.decimalPad)
+                    )
+                        .keyboardType(.decimalPad)
+                        .focused(self.$amountFieldFocused)
                     
                     Picker("Number of people", selection: self.$numberOfPeople) {
                         ForEach(self.numbersOfPeople, id: \.self) {
@@ -63,7 +66,14 @@ struct ContentView: View {
                         format: .currency(code: Locale.current.currency?.identifier ?? "USD")
                     )
                 }
-            }.navigationTitle("WeSplit")
+            }
+                .navigationTitle("WeSplit")
+                .toolbar {
+                    ToolbarItemGroup(placement: .keyboard) {
+                        Spacer()
+                        Button("Done") { self.amountFieldFocused = false }
+                    }
+                }
         }
     }
 }

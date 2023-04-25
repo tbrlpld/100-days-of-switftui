@@ -18,12 +18,16 @@ struct ContentView: View {
     let tipPercentages = [0, 10, 15, 20, 25, 30]
     @State private var tipPercentage = 20
     
-    var amountPerPerson: Double {
+    var grandTotal: Double {
         let tipPercentage = Double(self.tipPercentage)
         let tipAmount = self.checkAmount / 100 * tipPercentage
         let grandTotal = self.checkAmount + tipAmount
+        return grandTotal
+    }
+    
+    var amountPerPerson: Double {
         let personCount = Double(self.numberOfPeople)
-        let totalPerPerson = grandTotal / personCount
+        let totalPerPerson = self.grandTotal / personCount
         return totalPerPerson
     }
     
@@ -57,6 +61,15 @@ struct ContentView: View {
                     .pickerStyle(.segmented)
                 } header: {
                     Text("How much tip do you want to leave?")
+                }
+                
+                Section {
+                    Text(
+                        self.grandTotal,
+                        format: .currency(code: Locale.current.currency?.identifier ?? "USD")
+                    )
+                } header: {
+                    Text("Total amount")
                 }
 
                 Section {

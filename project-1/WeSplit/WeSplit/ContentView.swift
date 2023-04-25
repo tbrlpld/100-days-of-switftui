@@ -36,30 +36,29 @@ struct ContentView: View {
                         value: self.$checkAmount,
                         format: .currency(code: Locale.current.currency?.identifier ?? "USD")
                     )
-                        .keyboardType(.decimalPad)
-                        .focused(self.$amountFieldFocused)
+                    .keyboardType(.decimalPad)
+                    .focused(self.$amountFieldFocused)
                     
                     Picker("Number of people", selection: self.$numberOfPeople) {
                         ForEach(self.numbersOfPeople, id: \.self) {
                             Text("\($0) people")
                         }
                     }
-                        .pickerStyle(.navigationLink)
+                    .pickerStyle(.navigationLink)
                 }
                 
+
                 Section {
                     Picker("Tip amount", selection: self.$tipPercentage) {
                         ForEach(self.tipPercentages, id: \.self) {
                             Text($0, format: .percent)
                         }
                     }
-                        .pickerStyle(.segmented)
-                        .padding(0.0)
+                    .pickerStyle(.segmented)
                 } header: {
                     Text("How much tip do you want to leave?")
                 }
-                .padding(0.0)
-                
+
                 Section {
                     Text(
                         self.amountPerPerson,
@@ -67,13 +66,13 @@ struct ContentView: View {
                     )
                 }
             }
-                .navigationTitle("WeSplit")
-                .toolbar {
-                    ToolbarItemGroup(placement: .keyboard) {
-                        Spacer()
-                        Button("Done") { self.amountFieldFocused = false }
-                    }
+            .navigationTitle("WeSplit")
+            .toolbar {
+                ToolbarItemGroup(placement: .keyboard) {
+                    Spacer()
+                    Button("Done") { self.amountFieldFocused = false }
                 }
+            }
         }
     }
 }

@@ -8,27 +8,19 @@
 import SwiftUI
 
 
+let celsius = "℃"
+let fahrenheit = "℉"
+
 struct ContentView: View {
     @State private var fromAmount: Double = 0
     @FocusState private var fromAmountFocused: Bool
     
-    let celsius = "℃"
-    let fahrenheit = "℉"
-    var availableUnits: [String] {
-        [self.celsius, self.fahrenheit]
-    }
+    let availableUnits = [celsius, fahrenheit]
     
-    @State private var pickedUnit: String = ""
+    @State private var pickedFromUnit: String = celsius
     
     var toUnit: String {
-        switch self.pickedUnit {
-            case self.celsius:
-                return self.fahrenheit
-            case self.fahrenheit:
-                return self.celsius
-            default:
-                return ""
-        }
+        self.pickedFromUnit == celsius ? fahrenheit : celsius
     }
     
     var body: some View {
@@ -43,7 +35,7 @@ struct ContentView: View {
                         .keyboardType(.numberPad)
                         .focused(self.$fromAmountFocused)
                     
-                    Picker("Unit", selection: self.$pickedUnit) {
+                    Picker("Unit", selection: self.$pickedFromUnit) {
                         ForEach(self.availableUnits, id: \.self) {
                             Text($0)
                         }

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var fromAmount: Double = 0
+    @FocusState private var fromAmountFocused: Bool
     
     var body: some View {
         NavigationView {
@@ -20,6 +21,7 @@ struct ContentView: View {
                         format: .number
                     )
                         .keyboardType(.numberPad)
+                        .focused(self.$fromAmountFocused)
                     Text("Unit")
                 } header: {
                     Text("From")
@@ -43,6 +45,12 @@ struct ContentView: View {
                 }
             }
             .navigationTitle("Fahr & Heit")
+            .toolbar {
+                ToolbarItemGroup(placement: .keyboard) {
+                    Spacer()
+                    Button("Done") { self.fromAmountFocused = false }
+                }
+            }
         }
     }
 }

@@ -8,11 +8,18 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var fromAmount: Double = 0
+    
     var body: some View {
         NavigationView {
             Form {
                 Section {
-                    Text("Amount")
+                    TextField(
+                        "Amount",
+                        value: self.$fromAmount,
+                        format: .number
+                    )
+                        .keyboardType(.numberPad)
                     Text("Unit")
                 } header: {
                     Text("From")
@@ -22,12 +29,12 @@ struct ContentView: View {
                     Text("Unit")
                         
                 } header: {
-                    Text("TO")
+                    Text("To")
                 }
                 
                 
                 Section {
-                    Text("Amount")
+                    Text("\(self.fromAmount.formatted())")
                         .font(.title)
                         .fontWeight(.bold)
                         .padding(.vertical, 10)

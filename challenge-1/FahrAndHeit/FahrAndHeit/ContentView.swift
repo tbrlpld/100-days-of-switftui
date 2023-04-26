@@ -23,6 +23,21 @@ struct ContentView: View {
         self.pickedFromUnit == celsius ? fahrenheit : celsius
     }
     
+    var toAmount: Double {
+        if self.pickedFromUnit == celsius {
+            return self.fromCelsiusToFahrenheit(self.fromAmount)
+        }
+        return self.fromFahrenheitToCelsius(self.fromAmount)
+    }
+    
+    func fromCelsiusToFahrenheit(_ number: Double) -> Double {
+        number * 2
+    }
+    
+    func fromFahrenheitToCelsius(_ number: Double) -> Double {
+        number / 2
+    }
+    
     var body: some View {
         NavigationView {
             Form {
@@ -49,7 +64,7 @@ struct ContentView: View {
                 
                 
                 Section {
-                    Text("\(self.fromAmount.formatted())\(self.toUnit)")
+                    Text("\(self.toAmount.formatted())\(self.toUnit)")
                         .font(.title)
                         .fontWeight(.bold)
                         .padding(.vertical, 10)

@@ -7,9 +7,29 @@
 
 import SwiftUI
 
+
 struct ContentView: View {
     @State private var fromAmount: Double = 0
     @FocusState private var fromAmountFocused: Bool
+    
+    let celsius = "℃"
+    let fahrenheit = "℉"
+    var availableUnits: [String] {
+        [self.celsius, self.fahrenheit]
+    }
+    
+    @State private var pickedUnit: String = ""
+    
+    var toUnit: String {
+        switch self.pickedUnit {
+            case self.celsius:
+                return self.fahrenheit
+            case self.fahrenheit:
+                return self.celsius
+            default:
+                return ""
+        }
+    }
     
     var body: some View {
         NavigationView {
@@ -22,28 +42,30 @@ struct ContentView: View {
                     )
                         .keyboardType(.numberPad)
                         .focused(self.$fromAmountFocused)
-                    Text("Unit")
+                    
+                    Picker("Unit", selection: self.$pickedUnit) {
+                        ForEach(self.availableUnits, id: \.self) {
+                            Text($0)
+                        }
+                    }
+                    .pickerStyle(.segmented)
+                    .padding(.vertical, 10)
+                    
                 } header: {
                     Text("From")
                 }
                 
-                Section {
-                    Text("Unit")
-                        
-                } header: {
-                    Text("To")
-                }
-                
                 
                 Section {
-                    Text("\(self.fromAmount.formatted())")
+                    Text("\(self.fromAmount.formatted())\(self.toUnit)")
                         .font(.title)
                         .fontWeight(.bold)
                         .padding(.vertical, 10)
                 } header: {
-                    Text("Result")
+                    Text("To")
                 }
             }
+            
             .navigationTitle("Fahr & Heit")
             .toolbar {
                 ToolbarItemGroup(placement: .keyboard) {

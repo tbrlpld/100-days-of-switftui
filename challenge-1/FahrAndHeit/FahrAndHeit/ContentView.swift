@@ -12,7 +12,7 @@ let celsius = "℃"
 let fahrenheit = "℉"
 
 struct ContentView: View {
-    @State private var fromAmount: Double = 0
+    @State private var fromAmount: Double = 16
     @FocusState private var fromAmountFocused: Bool
     
     let availableUnits = [celsius, fahrenheit]
@@ -31,11 +31,13 @@ struct ContentView: View {
     }
     
     func fromCelsiusToFahrenheit(_ number: Double) -> Double {
-        number * 2
+        let celsius = Measurement(value: number, unit: UnitTemperature.celsius)
+        return celsius.converted(to: .fahrenheit).value
     }
     
     func fromFahrenheitToCelsius(_ number: Double) -> Double {
-        number / 2
+        let fahrenheit = Measurement(value: number, unit: UnitTemperature.fahrenheit)
+        return fahrenheit.converted(to: .celsius).value
     }
     
     var body: some View {

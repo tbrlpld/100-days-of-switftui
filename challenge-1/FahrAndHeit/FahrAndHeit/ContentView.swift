@@ -49,7 +49,7 @@ struct ContentView: View {
                         value: self.$fromAmount,
                         format: .number
                     )
-                        .keyboardType(.numberPad)
+                        .keyboardType(.decimalPad)
                         .focused(self.$fromAmountFocused)
                         .font(.title)
                         .padding(.vertical, 10)

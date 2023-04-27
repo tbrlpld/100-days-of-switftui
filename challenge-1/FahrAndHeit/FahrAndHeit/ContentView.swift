@@ -12,7 +12,7 @@ let celsius = "℃"
 let fahrenheit = "℉"
 
 struct ContentView: View {
-    @State private var fromAmount: Double = 16
+    @State private var fromAmount: Double = 23
     @FocusState private var fromAmountFocused: Bool
     
     let availableUnits = [celsius, fahrenheit]
@@ -51,14 +51,18 @@ struct ContentView: View {
                     )
                         .keyboardType(.numberPad)
                         .focused(self.$fromAmountFocused)
+                        .font(.title)
+                        .padding(.vertical, 10)
                     
                     Picker("Unit", selection: self.$pickedFromUnit) {
                         ForEach(self.availableUnits, id: \.self) {
                             Text($0)
+                                .fontWeight(.black)
+                                .foregroundColor(Color.yellow)
                         }
                     }
-                    .pickerStyle(.segmented)
-                    .padding(.vertical, 10)
+                        .pickerStyle(.segmented)
+                        .padding(.vertical, 10)
                     
                 } header: {
                     Text("From")

@@ -58,7 +58,6 @@ struct ContentView: View {
                         ForEach(self.availableUnits, id: \.self) {
                             Text($0)
                                 .fontWeight(.black)
-                                .foregroundColor(Color.yellow)
                         }
                     }
                         .pickerStyle(.segmented)
@@ -67,7 +66,6 @@ struct ContentView: View {
                 } header: {
                     Text("From")
                 }
-                
                 
                 Section {
                     Text("\(self.toAmount.formatted())\(self.toUnit)")
@@ -78,7 +76,6 @@ struct ContentView: View {
                     Text("To")
                 }
             }
-            
             .navigationTitle("Fahr & Heit")
             .toolbar {
                 ToolbarItemGroup(placement: .keyboard) {

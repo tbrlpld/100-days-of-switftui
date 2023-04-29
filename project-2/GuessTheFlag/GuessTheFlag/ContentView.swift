@@ -32,7 +32,7 @@ struct ContentView: View {
                 VStack(spacing: 40) {
                     VStack {
                         Text("Select the flag of")
-                            .font(.headline.weight(.bold))
+                            .font(.title2.weight(.semibold))
                         Text(self.countries[self.correctCountry])
                             .font(.largeTitle.weight(.bold))
                     }
@@ -51,7 +51,7 @@ struct ContentView: View {
                 }
                 Spacer()
                 Text("Score: \( self.score )")
-                    .fontWeight(.semibold)
+                    .font(.title2.weight(.semibold))
                 Spacer()
             }
         }

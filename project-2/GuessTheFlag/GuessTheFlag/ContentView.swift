@@ -55,7 +55,7 @@ struct ContentView: View {
                     }
                 }
                 Spacer()
-                Text("Score: \( self.score )")
+                Text("\( self.score ) Points")
                     .font(.title2.weight(.semibold))
                 Spacer()
             }

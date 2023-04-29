@@ -24,7 +24,7 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            Color(red: 0.9, green: 0.9, blue: 0.9)
+            Color.yellow.opacity(0.3)
                 .ignoresSafeArea()
            
             VStack {
@@ -44,7 +44,12 @@ struct ContentView: View {
                             } label: {
                                 Image(self.countries[number].lowercased())
                                     .clipShape(Rectangle()).cornerRadius(5)
-                                    .shadow(radius: 10, x: 2, y: 3)
+                                    .shadow(
+                                        color: Color.black.opacity(0.1),
+                                        radius: 5,
+                                        x: 3,
+                                        y: 5
+                                    )
                             }
                         }
                     }
@@ -55,6 +60,7 @@ struct ContentView: View {
                 Spacer()
             }
         }
+        .foregroundColor(Color.primary)
         .alert(self.message, isPresented: self.$showResponse) {
             Button(self.messageButtonText) {
                 self.askQuestion()

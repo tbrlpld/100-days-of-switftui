@@ -8,8 +8,17 @@
 import SwiftUI
 
 struct ContentView: View {
-    var countries = ["estonia", "france", "germany", "italy", "ireland", "monaco", "nigeria", "russia", "poland", "spain", "uk", "us"]
-    var correctCountry = Int.random(in: 0...2)
+    @State var countries: [String]
+    @State var correctCountry: Int
+    
+    @State var showResponse = false
+    @State var message = "Answer"
+    @State var messageButtonText = "Continue"
+    
+    init() {
+        self.countries = Self.getCountryArray()
+        self.correctCountry = Self.getCorrectAnswer()
+    }
     
     var body: some View {
         ZStack {
@@ -23,13 +32,49 @@ struct ContentView: View {
                 
                 ForEach(0..<3) { number in
                     Button {
-                        print("Add button")
+                        self.checkAnwer(answer: number)
                     } label: {
                         Image(self.countries[number])
                     }
                 }
             }
+        }.alert(self.message, isPresented: self.$showResponse) {
+            Button(self.messageButtonText) {
+                self.askQuestion()
+            }
         }
+    }
+    
+    static func getCountryArray() -> [String] {
+        return ["estonia", "france", "germany", "italy", "ireland", "monaco", "nigeria", "russia", "poland", "spain", "uk", "us"].shuffled()
+    }
+    
+    static func getCorrectAnswer() -> Int {
+         return Int.random(in: 0..<3)
+    }
+    
+    func checkAnwer(answer: Int) {
+        if answer == self.correctCountry {
+            self.setResponseForCorrect()
+        } else {
+            self.setResponseForWrong()
+        }
+        self.showResponse = true
+    }
+    
+    func askQuestion() {
+        self.countries = Self.getCountryArray()
+        self.correctCountry = Self.getCorrectAnswer()
+    }
+    
+    func setResponseForCorrect() {
+        self.message = "Correct"
+        self.messageButtonText = "Continue"
+    }
+    
+    func setResponseForWrong() {
+        self.message = "Wrong"
+        self.messageButtonText = "New round"
     }
 }
 

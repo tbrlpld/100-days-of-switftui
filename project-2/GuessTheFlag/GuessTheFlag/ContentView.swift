@@ -12,8 +12,9 @@ struct ContentView: View {
     @State var correctCountry: Int
     
     @State var showResponse = false
-    @State var message = "Answer"
-    @State var messageButtonText = "Continue"
+    @State var responseTitle = "Answer"
+    @State var responseMessage = ""
+    @State var responseButtonText = "Continue"
     
     @State var score = 0
     
@@ -61,11 +62,16 @@ struct ContentView: View {
             }
         }
         .foregroundColor(Color.primary)
-        .alert(self.message, isPresented: self.$showResponse) {
-            Button(self.messageButtonText) {
+        .alert(self.responseTitle, isPresented: self.$showResponse) {
+            Button(self.responseButtonText) {
                 self.askQuestion()
             }
+        } message: {
+            if self.responseMessage != "" {
+                Text(self.responseMessage)
+            }
         }
+
     }
     
     static func getCountryArray() -> [String] {
@@ -93,7 +99,7 @@ struct ContentView: View {
         if answer == self.correctCountry {
             self.handleCorrectAnswer()
         } else {
-            self.handleWrongAnswer()
+            self.handleWrongAnswer(answer: answer)
         }
         self.showResponse = true
     }
@@ -101,17 +107,21 @@ struct ContentView: View {
     func askQuestion() {
         self.countries = Self.getCountryArray()
         self.correctCountry = Self.getCorrectAnswer()
+        self.responseMessage = ""
     }
     
     func handleCorrectAnswer() {
-        self.message = "Correct"
-        self.messageButtonText = "Continue"
+        self.responseTitle = "Correct"
+        self.responseButtonText = "Continue"
         self.score += 1
     }
     
-    func handleWrongAnswer() {
-        self.message = "Wrong"
-        self.messageButtonText = "New round"
+    func handleWrongAnswer(answer: Int) {
+        self.responseTitle = "Wrong"
+        self.responseButtonText = "New round"
+        let selectedCountry = self.countries[answer]
+        self.responseMessage = "That was the flag of \(selectedCountry)"
+        print(self.responseMessage)
     }
 }
 

@@ -63,7 +63,20 @@ struct ContentView: View {
     }
     
     static func getCountryArray() -> [String] {
-        return ["Estonia", "France", "Germany", "Italy", "Ireland", "Monaco", "Nigeria", "Russia", "Poland", "Spain", "UK", "US"].shuffled()
+        return [
+            "Estonia",
+            "France",
+            "Germany",
+            "Italy",
+            "Ireland",
+            "Monaco",
+            "Nigeria",
+            "Russia",
+            "Poland",
+            "Spain",
+            "UK",
+            "US"
+        ].shuffled()
     }
     
     static func getCorrectAnswer() -> Int {

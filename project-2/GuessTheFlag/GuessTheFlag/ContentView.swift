@@ -22,19 +22,23 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            Color(red: 0.9, green: 0.9, blue: 0.9)
+            LinearGradient(colors: [Color(red: 0.95, green: 0.95, blue: 0.95), Color(red: 0.8, green: 0.8, blue: 0.8)], startPoint: .top, endPoint: .bottom)
                 .ignoresSafeArea()
             VStack(spacing: 30) {
                 VStack {
                     Text("Select the flag of")
-                    Text(self.countries[self.correctCountry].uppercased())
+                        .font(.headline.weight(.heavy))
+                    Text(self.countries[self.correctCountry])
+                        .font(.largeTitle.weight(.bold))
                 }
                 
                 ForEach(0..<3) { number in
                     Button {
                         self.checkAnwer(answer: number)
                     } label: {
-                        Image(self.countries[number])
+                        Image(self.countries[number].lowercased())
+                            .clipShape(Rectangle()).cornerRadius(5)
+                            .shadow(radius: 10, x: 2, y: 3)
                     }
                 }
             }
@@ -46,7 +50,7 @@ struct ContentView: View {
     }
     
     static func getCountryArray() -> [String] {
-        return ["estonia", "france", "germany", "italy", "ireland", "monaco", "nigeria", "russia", "poland", "spain", "uk", "us"].shuffled()
+        return ["Estonia", "France", "Germany", "Italy", "Ireland", "Monaco", "Nigeria", "Russia", "Poland", "Spain", "UK", "US"].shuffled()
     }
     
     static func getCorrectAnswer() -> Int {

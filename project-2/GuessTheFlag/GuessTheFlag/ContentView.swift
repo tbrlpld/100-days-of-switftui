@@ -17,6 +17,9 @@ struct ContentView: View {
     @State var responseButtonText = "Continue"
     
     @State var score = 0
+    let maxRounds = 3
+    @State var playedRounds = 0
+    @State var showGameOver = false
     
     init() {
         self.countries = Self.getCountryArray()
@@ -41,7 +44,7 @@ struct ContentView: View {
                     VStack(spacing: 30) {
                         ForEach(0..<3) { number in
                             Button {
-                                self.checkAnwer(answer: number)
+                                self.handleAnswerSubmitted(answer: number)
                             } label: {
                                 Image(self.countries[number].lowercased())
                                     .clipShape(Rectangle()).cornerRadius(5)
@@ -64,12 +67,19 @@ struct ContentView: View {
         .foregroundColor(Color.primary)
         .alert(self.responseTitle, isPresented: self.$showResponse) {
             Button(self.responseButtonText) {
-                self.askQuestion()
+                self.handleResponseDismissed()
             }
         } message: {
             if self.responseMessage != "" {
                 Text(self.responseMessage)
             }
+        }
+        .alert("Game over", isPresented: self.$showGameOver) {
+            Button("Play again") {
+                self.handleGameOverDismissed()
+            }
+        } message: {
+            Text("You got \(self.score) of \(self.playedRounds) guesses correct.")
         }
 
     }
@@ -95,12 +105,13 @@ struct ContentView: View {
          return Int.random(in: 0..<3)
     }
     
-    func checkAnwer(answer: Int) {
+    func handleAnswerSubmitted(answer: Int) {
         if answer == self.correctCountry {
-            self.handleCorrectAnswer()
+            self.updateStateForCorrectAnswer()
         } else {
-            self.handleWrongAnswer(answer: answer)
+            self.updateStateForWrongAnswer(answer: answer)
         }
+        self.playedRounds += 1
         self.showResponse = true
     }
     
@@ -110,18 +121,37 @@ struct ContentView: View {
         self.responseMessage = ""
     }
     
-    func handleCorrectAnswer() {
+    func updateStateForCorrectAnswer() {
         self.responseTitle = "Correct"
         self.responseButtonText = "Continue"
         self.score += 1
     }
     
-    func handleWrongAnswer(answer: Int) {
+    func updateStateForWrongAnswer(answer: Int) {
         self.responseTitle = "Wrong"
         self.responseButtonText = "New round"
         let selectedCountry = self.countries[answer]
         self.responseMessage = "That was the flag of \(selectedCountry)"
-        print(self.responseMessage)
+    }
+    
+    func handleResponseDismissed() {
+        print("Game over: \(self.isGameOver())")
+        if self.isGameOver() == true {
+            self.showGameOver = true
+        } else {
+            self.askQuestion()
+        }
+    }
+    
+    func handleGameOverDismissed() {
+        print("Starting new game")
+        self.playedRounds = 0
+        self.score = 0
+        self.askQuestion()
+    }
+    
+    func isGameOver() -> Bool {
+        return self.playedRounds >= self.maxRounds
     }
 }
 

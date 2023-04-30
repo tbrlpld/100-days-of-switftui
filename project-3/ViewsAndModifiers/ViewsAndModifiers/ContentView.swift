@@ -7,25 +7,52 @@
 
 import SwiftUI
 
-struct TextCapsule: View {
-    var text: String
+
+struct TitleStyle: ViewModifier {
+    var prefix = ""
+    var suffix = ""
     
-    var body: some View {
-        Text(self.text)
-            .padding(20)
-            .frame(minWidth: 100)
-            .background(.blue)
-            .clipShape(Capsule())
+    func body(content: Self.Content) -> some View {
+        HStack {
+            if self.prefix != "" {
+                Text(self.prefix)
+            }
+            content
+            if self.suffix != "" {
+                Text(self.suffix)
+            }
+        }
+            .font(.largeTitle)
+            .foregroundColor(.accentColor)
+            .bold()
+    }
+}
+
+extension View {
+    func titleStyle(prefix: String = "", suffix: String = "") -> some View {
+        modifier(TitleStyle(prefix: prefix, suffix: suffix))
+    }
+    
+}
+
+extension View {
+    func makeNothing() -> some View {
+        Text("There is nothing here at all")
+            .padding()
+            .foregroundColor(.white)
+            .background(.black)
     }
 }
 
 struct ContentView: View {
     var body: some View {
-        VStack(spacing: 30) {
-            TextCapsule(text: "This")
-            TextCapsule(text: "That")
-            TextCapsule(text: "And one with another modifier")
-                .foregroundColor(.white)
+        VStack {
+            Text("The plain text")
+                .modifier(TitleStyle())
+            Text("The plain text")
+                .titleStyle(prefix: "<", suffix: ">")
+            Text("The plain text")
+                .makeNothing()
         }
     }
 }

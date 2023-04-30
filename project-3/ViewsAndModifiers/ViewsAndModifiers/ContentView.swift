@@ -7,19 +7,26 @@
 
 import SwiftUI
 
+struct TextCapsule: View {
+    var text: String
+    
+    var body: some View {
+        Text(self.text)
+            .padding(20)
+            .frame(minWidth: 100)
+            .background(.blue)
+            .clipShape(Capsule())
+    }
+}
+
 struct ContentView: View {
     var body: some View {
-        Text("Hello, world!")
-            .padding()
-            .background(.red)
-            .padding()
-            .background(.orange)
-            .padding()
-            .background(.yellow)
-            .padding()
-            .background(.green)
-            .padding()
-            .background(.blue)
+        VStack(spacing: 30) {
+            TextCapsule(text: "This")
+            TextCapsule(text: "That")
+            TextCapsule(text: "And one with another modifier")
+                .foregroundColor(.white)
+        }
     }
 }
 

@@ -7,6 +7,27 @@
 
 import SwiftUI
 
+
+struct Flag: View {
+    var flagImageName: String
+    
+    init(_ flagImageName: String) {
+        self.flagImageName = flagImageName
+    }
+    
+    var body: some View {
+        Image(self.flagImageName)
+            .clipShape(Rectangle())
+            .cornerRadius(5)
+            .shadow(
+                color: Color.black.opacity(0.1),
+                radius: 5,
+                x: 3,
+                y: 5
+            )
+    }
+}
+
 struct ContentView: View {
     @State var countries: [String]
     @State var correctCountry: Int
@@ -46,14 +67,7 @@ struct ContentView: View {
                             Button {
                                 self.handleAnswerSubmitted(answer: number)
                             } label: {
-                                Image(self.countries[number].lowercased())
-                                    .clipShape(Rectangle()).cornerRadius(5)
-                                    .shadow(
-                                        color: Color.black.opacity(0.1),
-                                        radius: 5,
-                                        x: 3,
-                                        y: 5
-                                    )
+                                Flag(self.countries[number].lowercased())
                             }
                         }
                     }

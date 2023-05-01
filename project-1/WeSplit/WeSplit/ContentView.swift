@@ -72,6 +72,8 @@ struct ContentView: View {
                         self.grandTotal,
                         format: self.currencyFormat
                     )
+                    .font(Font.title)
+                    .foregroundColor(self.tipPercentage == 0 ? .red : .primary)
                 } header: {
                     Text("Total amount")
                 }
@@ -81,6 +83,8 @@ struct ContentView: View {
                         self.amountPerPerson,
                         format: self.currencyFormat
                     )
+                    .font(.largeTitle)
+                    .bold()
                 } header: {
                     Text("Amount per person")
                 }

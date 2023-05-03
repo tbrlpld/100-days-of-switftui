@@ -8,15 +8,26 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var sleepAmount = 8.0
+    @State private var sleepAmount = 8.0
+    @State private var wakeUpTime = Date.now
+    
     var body: some View {
-        Stepper(
-            "\(self.sleepAmount.formatted())",
-            value: self.$sleepAmount,
-            in: 4...12,
-            step: 0.25
-        )
+        VStack(spacing: 20) {
+            Stepper(
+                "\(self.sleepAmount.formatted())",
+                value: self.$sleepAmount,
+                in: 4...12,
+                step: 0.25
+            )
+            DatePicker(
+                "Wake up time?",
+                selection: self.$wakeUpTime,
+                in: Date.now...
+            )
+        }
+        .padding()
     }
+    
 }
 
 struct ContentView_Previews: PreviewProvider {

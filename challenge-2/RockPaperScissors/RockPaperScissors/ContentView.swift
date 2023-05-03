@@ -34,39 +34,42 @@ struct ContentView: View {
     }
     
     var body: some View {
-        VStack {
-            Spacer()
-            Text("Rock, Paper, Knowledge")
-                .font(.title).bold()
-            Spacer()
-            VStack(spacing: 20) {
-                Text(self.challengerHand)
-                    .font(.title).fontWeight(.bold)
-                Text("would")
-                Text(self.getMoveLabel())
-                    .font(.title2).fontWeight(.bold)
-                Text("against?")
-                HStack(spacing: 30) {
-                    ForEach(Self.hands, id: \.self) { hand in
-                        Button(hand) {
-                            print("Selected \(hand)")
-                            handleHandPicked(picked: hand)
+        ZStack {
+            Color.yellow
+                .ignoresSafeArea()
+            VStack {
+                Spacer()
+                Text("Rock, Paper, Knowledge")
+                    .font(.title).bold()
+                Spacer()
+                VStack(spacing: 20) {
+                    Text(self.challengerHand)
+                        .font(.title).fontWeight(.bold)
+                    Text("would")
+                    Text(self.getMoveLabel())
+                        .font(.title2).fontWeight(.bold)
+                    Text("against?")
+                    HStack(spacing: 30) {
+                        ForEach(Self.hands, id: \.self) { hand in
+                            Button(hand) {
+                                print("Selected \(hand)")
+                                handleHandPicked(picked: hand)
+                            }
+                            .bold()
                         }
-                        .bold()
                     }
+                    .padding()
                 }
-                .padding(30)
+                Spacer()
+                Spacer()
             }
-            .padding()
-            Spacer()
-            Spacer()
-        }
-        .alert("Game over", isPresented: self.$gameOver) {
-            Button("Start over") {
-                self.handleGameOverAlertDismissed()
+            .alert("Game over", isPresented: self.$gameOver) {
+                Button("Start over") {
+                    self.handleGameOverAlertDismissed()
+                }
+            } message: {
+                Text("Your score is: \(self.score)")
             }
-        } message: {
-            Text("Your score is: \(self.score)")
         }
     }
     

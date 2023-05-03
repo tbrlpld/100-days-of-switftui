@@ -7,15 +7,44 @@
 
 import SwiftUI
 
+let rock = "Rock"
+let paper = "Paper"
+let scissors = "Scissors"
+
 struct ContentView: View {
+    let hands = [rock, paper, scissors]
+    
+    @State var moveIsWin = Bool.random()
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        VStack(spacing: 20) {
+            Text(self.getRandomHand())
+            HStack{
+                Text("would")
+                Text(self.getMoveLabel())
+                Text("against?")
+            }
+            HStack {
+                ForEach(self.hands, id: \.self) {
+                    Text($0)
+                }
+            }
         }
         .padding()
+    }
+    
+    func getRandomHand() -> String {
+        print("Getting random hand.")
+        let hand = self.hands.randomElement()!
+        print("-> \(hand)")
+        return hand
+    }
+    
+    func getMoveLabel() -> String {
+        if self.moveIsWin {
+            return "win"
+        }
+        return "loose"
     }
 }
 

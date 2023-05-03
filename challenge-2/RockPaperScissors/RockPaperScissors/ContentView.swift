@@ -17,20 +17,32 @@ struct ContentView: View {
     @State var moveIsWin = Bool.random()
     
     var body: some View {
-        VStack(spacing: 20) {
-            Text(self.getRandomHand())
-            HStack{
+        VStack {
+            Spacer()
+            Text("Rock, Paper, Knowledge")
+                .font(.title).bold()
+            Spacer()
+            VStack(spacing: 20) {
+                Text(self.getRandomHand())
+                    .font(.title).fontWeight(.bold)
                 Text("would")
                 Text(self.getMoveLabel())
+                    .font(.title2).fontWeight(.bold)
                 Text("against?")
-            }
-            HStack {
-                ForEach(self.hands, id: \.self) {
-                    Text($0)
+                HStack(spacing: 30) {
+                    ForEach(self.hands, id: \.self) { hand in
+                        Button(hand) {
+                            print("Selected \(hand)")
+                        }
+                        .bold()
+                    }
                 }
+                .padding(30)
             }
+            .padding()
+            Spacer()
+            Spacer()
         }
-        .padding()
     }
     
     func getRandomHand() -> String {

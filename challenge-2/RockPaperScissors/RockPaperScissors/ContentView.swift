@@ -24,6 +24,11 @@ struct ContentView: View {
     @State var challengerHand: String
     @State var isMoveWin = Bool.random()
     
+    @State var score = 0
+    @State var roundsPlayed = 0
+    let maxRounds = 10
+    @State var gameOver = false
+    
     init() {
         self.challengerHand = Self.getRandomHand()
     }
@@ -56,6 +61,13 @@ struct ContentView: View {
             Spacer()
             Spacer()
         }
+        .alert("Game over", isPresented: self.$gameOver) {
+            Button("Start over") {
+                self.handleGameOverAlertDismissed()
+            }
+        } message: {
+            Text("Your score is: \(self.score)")
+        }
     }
     
     static func getRandomHand() -> String {
@@ -64,8 +76,13 @@ struct ContentView: View {
         return hand
     }
     
+    func resetGame() {
+        self.score = 0
+        self.roundsPlayed = 0
+    }
+    
     func askQuestion() {
-        print()
+        print("\n")
         self.isMoveWin.toggle()
         self.challengerHand = Self.getRandomHand()
     }
@@ -84,6 +101,26 @@ struct ContentView: View {
         } else {
             result = self.wouldLooseAgainst(challenger: self.challengerHand, incumbent: picked)
         }
+        
+        if result {
+            self.score += 1
+        } else if self.score > 0 {
+            self.score -= 1
+        }
+        print("Score: \(self.score)")
+        
+        self.roundsPlayed += 1
+        print("Rounds played: \(self.roundsPlayed)")
+        if self.roundsPlayed < self.maxRounds {
+            self.askQuestion()
+        } else {
+            self.gameOver = true
+        }
+        
+    }
+    
+    func handleGameOverAlertDismissed() {
+        self.resetGame()
         self.askQuestion()
     }
     

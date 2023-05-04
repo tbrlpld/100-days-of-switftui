@@ -38,7 +38,8 @@ struct ContentView: View {
         components.hour = 8
         components.minute = 31
         
-        let date = Calendar.current.date(from: components) ?? Date.now
+        let dateWithSetHour = Calendar.current.date(bySetting: .hour, value: 8, of: Date.now) ?? Date.now
+        let date = Calendar.current.date(bySetting: .minute, value: 31, of: dateWithSetHour) ?? Date.now
         print(type(of: date))
         print(date.formatted(date: .long, time: .complete))
         

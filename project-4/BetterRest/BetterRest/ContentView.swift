@@ -13,7 +13,11 @@ import CoreML
 import SwiftUI
 
 struct ContentView: View {
-    @State private var wakeUpTime = Date.now
+    static var defaultWakeUpTime: Date {
+        Calendar.current.date(bySettingHour: 7, minute: 30, second: 0, of: Date.now) ?? Date.now
+    }
+    
+    @State private var wakeUpTime = Self.defaultWakeUpTime
     @State private var sleepAmount = 8.0
     @State private var coffeeAmount = 1
     

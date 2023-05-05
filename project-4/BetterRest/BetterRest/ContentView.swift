@@ -23,7 +23,7 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            VStack(spacing: 20) {
+            Form {
                 Text("When you want to wake up?")
                     .font(.headline)
                 DatePicker(
@@ -50,7 +50,6 @@ struct ContentView: View {
                     in: 1...20
                 )
             }
-            .padding()
             .navigationTitle("BetterRest")
             .toolbar {
                 Button("Caclulate") {

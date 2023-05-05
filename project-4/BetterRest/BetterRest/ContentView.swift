@@ -28,31 +28,37 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             Form {
-                Text("When you want to wake up?")
-                    .font(.headline)
-                DatePicker(
-                    "",
-                    selection: self.$wakeUpTime,
-                    displayedComponents: .hourAndMinute
-                )
+                VStack(alignment: .leading, spacing: 20) {
+                    Text("When you want to wake up?")
+                        .font(.headline)
+                    DatePicker(
+                        "",
+                        selection: self.$wakeUpTime,
+                        displayedComponents: .hourAndMinute
+                    )
                     .labelsHidden()
+                }
                 
-                Text("How much sleep do you like?")
-                    .font(.headline)
-                Stepper(
-                    "\(self.sleepAmount.formatted()) hours",
-                    value: self.$sleepAmount,
-                    in: 4...12,
-                    step: 0.25
-                )
+                VStack(alignment: .leading, spacing: 20) {
+                    Text("How much sleep do you like?")
+                        .font(.headline)
+                    Stepper(
+                        "\(self.sleepAmount.formatted()) hours",
+                        value: self.$sleepAmount,
+                        in: 4...12,
+                        step: 0.25
+                    )
+                }
                 
-                Text("How much coffee do you drink?")
-                    .font(.headline)
-                Stepper(
-                    self.coffeeAmount == 1 ? "1 cup" : "\(self.coffeeAmount) cups",
-                    value: self.$coffeeAmount,
-                    in: 1...20
-                )
+                VStack(alignment: .leading, spacing: 20) {
+                    Text("How much coffee do you drink?")
+                        .font(.headline)
+                    Stepper(
+                        self.coffeeAmount == 1 ? "1 cup" : "\(self.coffeeAmount) cups",
+                        value: self.$coffeeAmount,
+                        in: 1...20
+                    )
+                }
             }
             .navigationTitle("BetterRest")
             .toolbar {

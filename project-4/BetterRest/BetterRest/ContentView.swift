@@ -68,11 +68,14 @@ struct ContentView: View {
                 CustomFormSection {
                     Text("How much coffee do you drink?")
                         .font(.headline)
-                    Stepper(
-                        self.coffeeAmount == 1 ? "1 cup" : "\(self.coffeeAmount) cups",
-                        value: self.$coffeeAmount,
-                        in: 1...20
-                    )
+                    Picker("Coffee", selection: self.$coffeeAmount) {
+                        // We need to use `id: \.self` so that that stored value is the actual value in the range.
+                        // By default, the index is stored (and we don't want the index as the coffee amount).
+                        ForEach(1..<21, id: \.self) {
+                            Text($0 == 1 ? "1 cup" : "\($0) cups")
+                        }
+                    }
+                    .labelsHidden()
                 }
             }
             .navigationTitle("BetterRest")

@@ -77,13 +77,22 @@ struct ContentView: View {
                     }
                     .labelsHidden()
                 }
+                
+                Section {
+                    HStack(alignment: .center) {
+                        Spacer()
+                        VStack(spacing: 20){
+                            Text("Recommended bed time")
+                                .font(.title2)
+                                .bold()
+                            Text(self.calculateBedTime())
+                        }
+                        Spacer()
+                    }
+                }
+                    .padding(20)
             }
             .navigationTitle("BetterRest")
-            .toolbar {
-                Button("Caclulate") {
-                    self.calculateBedTime()
-                }
-            }
             .alert(self.alertTitle, isPresented: self.$showAlert) {
                 Button("Ok") {}
             } message: {
@@ -92,7 +101,7 @@ struct ContentView: View {
         }
     }
     
-    func calculateBedTime() {
+    func calculateBedTime() -> String {
         print("Calculating bed time...")
         let wakeUpTimeComponents = Calendar.current.dateComponents([.hour, .minute], from: self.wakeUpTime)
         let wakeUpTimeSeconds = (
@@ -112,13 +121,14 @@ struct ContentView: View {
             )
             let recommendedSleepAmountSeconds = prediction.actualSleep
             let recommendedBedTime = self.wakeUpTime - recommendedSleepAmountSeconds
-            self.alertMessage = String(recommendedBedTime.formatted(date: .omitted, time: .shortened))
+            return String(recommendedBedTime.formatted(date: .omitted, time: .shortened))
         } catch {
             self.alertTitle = "Error"
             self.alertMessage = "Sorry, something went wrong."
+            self.showAlert = true
+            return ""
         }
         
-        self.showAlert = true
     }
     
     func hoursInMinutes(_ hours: Int) -> Int {

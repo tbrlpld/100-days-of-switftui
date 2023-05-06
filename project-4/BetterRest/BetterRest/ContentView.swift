@@ -12,6 +12,20 @@
 import CoreML
 import SwiftUI
 
+
+struct CustomFormSection<Content: View>: View {
+    @ViewBuilder var content: () -> Content
+    
+    var body: some View {
+        Section {
+            VStack(alignment: .leading, spacing: 20) {
+                self.content()
+            }
+                .padding(.vertical, 10)
+        }
+    }
+}
+
 struct ContentView: View {
     static var defaultWakeUpTime: Date {
         Calendar.current.date(bySettingHour: 7, minute: 30, second: 0, of: Date.now) ?? Date.now
@@ -25,10 +39,11 @@ struct ContentView: View {
     @State private var alertMessage = ""
     @State private var showAlert = false
     
+    
     var body: some View {
         NavigationView {
             Form {
-                VStack(alignment: .leading, spacing: 20) {
+                CustomFormSection {
                     Text("When you want to wake up?")
                         .font(.headline)
                     DatePicker(
@@ -39,7 +54,7 @@ struct ContentView: View {
                     .labelsHidden()
                 }
                 
-                VStack(alignment: .leading, spacing: 20) {
+                CustomFormSection {
                     Text("How much sleep do you like?")
                         .font(.headline)
                     Stepper(
@@ -50,7 +65,7 @@ struct ContentView: View {
                     )
                 }
                 
-                VStack(alignment: .leading, spacing: 20) {
+                CustomFormSection {
                     Text("How much coffee do you drink?")
                         .font(.headline)
                     Stepper(

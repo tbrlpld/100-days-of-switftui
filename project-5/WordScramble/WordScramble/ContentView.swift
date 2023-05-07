@@ -21,8 +21,13 @@ struct ContentView: View {
                 }
                 
                 Section {
-                    ForEach(self.enteredWords, id: \.self) {
-                        Text($0)
+                    ForEach(self.enteredWords, id: \.self) { word in
+                        HStack {
+                            Text(word)
+                            Spacer()
+                            Image(systemName: "\(word.count).circle")
+                                .foregroundColor(.gray)
+                        }
                     }
                 }
             }

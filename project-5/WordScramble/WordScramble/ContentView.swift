@@ -18,6 +18,8 @@ struct ContentView: View {
                 Section {
                     TextField("Enter new word", text: self.$newWord)
                         .autocapitalization(.none)
+                } header: {
+                    Text("Make new words from the letters in '\(self.rootWord)'")
                 }
                 
                 Section {
@@ -31,6 +33,7 @@ struct ContentView: View {
                     }
                 }
             }
+            .navigationTitle(self.rootWord)
         }
         .onAppear(perform: self.startGame)
         .onSubmit(self.addNewWord)

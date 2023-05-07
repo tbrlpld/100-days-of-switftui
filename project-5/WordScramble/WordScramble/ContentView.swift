@@ -32,10 +32,12 @@ struct ContentView: View {
                 }
             }
         }
-        .onSubmit{self.addNewWord()}
+        .onAppear(perform: self.startGame)
+        .onSubmit(self.addNewWord)
     }
     
     func addNewWord() {
+        print("New word submitted")
         let value = self.newWord.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
         // Check that the value has some characters in it.
         guard value.count > 0 else { return }
@@ -45,6 +47,21 @@ struct ContentView: View {
         }
         
         self.newWord = ""
+    }
+    
+    func startGame() {
+        print("Starting")
+        guard let startWordsURL = Bundle.main.url(forResource: "start-words", withExtension: "txt") else {
+            fatalError("Could find 'start-words.txt'.")
+        }
+        
+        guard let startWordsContent = try? String(contentsOf: startWordsURL) else {
+            fatalError("Could not load contents of 'start-words.txt'.")
+        }
+        
+        let startWords = startWordsContent.components(separatedBy: "\n")
+        self.rootWord = startWords.randomElement() ?? "silkworm"
+        print(self.rootWord)
     }
 }
 

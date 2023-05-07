@@ -11,6 +11,7 @@
 		002E5F052A06AA58004357DE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002E5F042A06AA58004357DE /* ContentView.swift */; };
 		002E5F072A06AA5C004357DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 002E5F062A06AA5C004357DE /* Assets.xcassets */; };
 		002E5F0A2A06AA5C004357DE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 002E5F092A06AA5C004357DE /* Preview Assets.xcassets */; };
+		002E5F112A080129004357DE /* start-words.txt in Resources */ = {isa = PBXBuildFile; fileRef = 002E5F102A080128004357DE /* start-words.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		002E5F042A06AA58004357DE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		002E5F062A06AA5C004357DE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		002E5F092A06AA5C004357DE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		002E5F102A080128004357DE /* start-words.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "start-words.txt"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +56,7 @@
 				002E5F022A06AA58004357DE /* WordScrambleApp.swift */,
 				002E5F042A06AA58004357DE /* ContentView.swift */,
 				002E5F062A06AA5C004357DE /* Assets.xcassets */,
+				002E5F102A080128004357DE /* start-words.txt */,
 				002E5F082A06AA5C004357DE /* Preview Content */,
 			);
 			path = WordScramble;
@@ -125,6 +128,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				002E5F112A080129004357DE /* start-words.txt in Resources */,
 				002E5F0A2A06AA5C004357DE /* Preview Assets.xcassets in Resources */,
 				002E5F072A06AA5C004357DE /* Assets.xcassets in Resources */,
 			);

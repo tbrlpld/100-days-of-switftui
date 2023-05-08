@@ -39,6 +39,9 @@ struct ContentView: View {
                 }
             }
             .navigationTitle(self.rootWord)
+            .toolbar {
+                Button("New word") { self.startGame() }
+            }
         }
         .onAppear(perform: self.startGame)
         .onSubmit(self.addNewWord)
@@ -51,6 +54,8 @@ struct ContentView: View {
     
     func startGame() {
         print("Starting")
+        self.enteredWords = [String]()
+        
         guard let startWordsURL = Bundle.main.url(forResource: "start-words", withExtension: "txt") else {
             fatalError("Could find 'start-words.txt'.")
         }

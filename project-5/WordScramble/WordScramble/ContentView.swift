@@ -80,6 +80,11 @@ struct ContentView: View {
             return
         }
         
+        guard self.isLongEnough(word: value) else {
+            self.wordError(title: "Too short", message: "Let's try a longer word.")
+            return
+        }
+        
         guard self.isRealWord(word: value) else {
             self.wordError(title: "Not a word", message: "You have to use real words, right?!")
             return
@@ -108,6 +113,10 @@ struct ContentView: View {
             }
         }
         return true
+    }
+    
+    func isLongEnough(word: String) -> Bool {
+        return word.count > 3
     }
     
     func isRealWord(word: String) -> Bool {

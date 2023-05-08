@@ -85,6 +85,11 @@ struct ContentView: View {
             return
         }
         
+        guard self.isDifferentFromRootWord(word: value) else {
+            self.wordError(title: "Same as root word", message: "Come on, don't be lazy.")
+            return
+        }
+        
         guard self.isRealWord(word: value) else {
             self.wordError(title: "Not a word", message: "You have to use real words, right?!")
             return
@@ -117,6 +122,10 @@ struct ContentView: View {
     
     func isLongEnough(word: String) -> Bool {
         return word.count > 3
+    }
+    
+    func isDifferentFromRootWord(word: String) -> Bool {
+        return word != self.rootWord
     }
     
     func isRealWord(word: String) -> Bool {

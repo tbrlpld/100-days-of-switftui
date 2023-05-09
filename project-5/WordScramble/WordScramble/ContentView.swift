@@ -12,6 +12,11 @@ struct ContentView: View {
     @State private var newWord = ""
     @State private var enteredWords = [String]()
     
+    let normalWordScore = 1
+    let longWordScore = 3
+    let longWordLength = 6
+    @State private var score = 0
+    
     @State private var wordErrorTitle = ""
     @State private var wordErrorMessage = ""
     @State private var showWordError = false
@@ -26,6 +31,17 @@ struct ContentView: View {
                 } header: {
                     Text("Make new words from the letters in '\(self.rootWord)'")
                 }
+                 
+                Section {
+                    HStack {
+                        Text("Score")
+                        Spacer()
+                        Text("\(self.score)")
+                    }
+                    .bold()
+                } header: {
+                    Text("\(self.normalWordScore) point per word, \(self.longWordScore) points for words with \(self.longWordLength) letters and above.")
+                }
                 
                 Section {
                     ForEach(self.enteredWords, id: \.self) { word in
@@ -33,7 +49,7 @@ struct ContentView: View {
                             Text(word)
                             Spacer()
                             Image(systemName: "\(word.count).circle")
-                                .foregroundColor(.gray)
+                                .foregroundColor(word.count >= 6 ? .green : .gray)
                         }
                     }
                 }
@@ -54,7 +70,9 @@ struct ContentView: View {
     
     func startGame() {
         print("Starting")
+        self.newWord = ""
         self.enteredWords = [String]()
+        self.score = 0
         
         guard let startWordsURL = Bundle.main.url(forResource: "start-words", withExtension: "txt") else {
             fatalError("Could find 'start-words.txt'.")
@@ -71,40 +89,49 @@ struct ContentView: View {
     
     func addNewWord() {
         print("New word submitted")
-        let value = self.newWord.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
-        // Check that the value has some characters in it.
-        guard value.count > 0 else { return }
+        let submittedWord = self.newWord.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
         
-        guard self.isOriginal(word: value) else {
-            self.wordError(title: "Already used", message: "Be more original.")
-            return
-        }
+        let wordScore = self.getWordScore(word: submittedWord)
+        guard wordScore > 0 else { return }
         
-        guard self.isPossible(word: value) else {
-            self.wordError(title: "Not possible", message: "You can not build '\(value)' from '\(self.rootWord)'")
-            return
-        }
-        
-        guard self.isLongEnough(word: value) else {
-            self.wordError(title: "Too short", message: "Let's try a longer word.")
-            return
-        }
-        
-        guard self.isDifferentFromRootWord(word: value) else {
-            self.wordError(title: "Same as root word", message: "Come on, don't be lazy.")
-            return
-        }
-        
-        guard self.isRealWord(word: value) else {
-            self.wordError(title: "Not a word", message: "You have to use real words, right?!")
-            return
-        }
-         
         withAnimation {
-            self.enteredWords.insert(value, at: 0)
+            self.score += wordScore
+            self.enteredWords.insert(submittedWord, at: 0)
         }
         
         self.newWord = ""
+    }
+    
+    func getWordScore(word: String) -> Int {
+        // Check that the value has some characters in it.
+        guard word.count > 0 else { return 0 }
+        
+        guard self.isLongEnough(word: word) else {
+            self.wordError(title: "Too short", message: "Let's try a longer word.")
+            return 0
+        }
+        
+        guard self.isOriginal(word: word) else {
+            self.wordError(title: "Already used", message: "Be more original.")
+            return 0
+        }
+        
+        guard self.isPossible(word: word) else {
+            self.wordError(title: "Not possible", message: "You can not build '\(word)' from '\(self.rootWord)'")
+            return 0
+        }
+        
+        guard self.isDifferentFromRootWord(word: word) else {
+            self.wordError(title: "Same as root word", message: "Come on, don't be lazy.")
+            return 0
+        }
+        
+        guard self.isRealWord(word: word) else {
+            self.wordError(title: "Not a word", message: "You have to use real words, right?!")
+            return 0
+        }
+        
+        return word.count >= self.longWordLength ? self.longWordScore : self.normalWordScore
     }
     
     func isOriginal(word: String) -> Bool {

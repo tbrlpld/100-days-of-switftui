@@ -12,18 +12,24 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            Button("Click me") {
-                self.animationAmount += 1
-            }
+            Button("Click me") { }
                 .bold()
                 .padding(50)
                 .background(.red)
                 .foregroundColor(.white)
                 .clipShape(Circle())
-                .scaleEffect(self.animationAmount)
-                .blur(radius: (self.animationAmount - 1) * 3)
-                .animation(.default, value: self.animationAmount)
-            
+                .overlay(
+                    Circle()
+                        .stroke(.red)
+                        .scaleEffect(self.animationAmount)
+                        .opacity(2 - self.animationAmount)
+                        .animation(
+                            .easeOut(duration: 1)
+                                .repeatForever(autoreverses: false),
+                            value: self.animationAmount
+                        )
+                )
+                .onAppear(perform: { self.animationAmount = 2})
         }
     }
 }

@@ -8,21 +8,18 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var enabled = false
+    @State private var dragAmount = CGSize.zero
     
     var body: some View {
-        VStack {
-            Button("Tap me") {
-                self.enabled.toggle()
-            }
-                .bold()
-                .padding(50)
-                .foregroundColor(.white)
-                .background(self.enabled ? .blue : .red)
-                .animation(.easeInOut(duration: 1), value: self.enabled)
-                .clipShape(RoundedRectangle(cornerRadius: self.enabled ? 0 : 20))
-                .animation(.interpolatingSpring(stiffness: 10, damping: 1), value: self.enabled)
-        }
+        LinearGradient(colors: [.yellow, .green], startPoint: .topLeading, endPoint: .bottomTrailing)
+            .frame(width: 300, height: 200)
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+            .offset(self.dragAmount)
+            .gesture(
+                DragGesture()
+                    .onChanged() { self.dragAmount = $0.translation }
+                    .onEnded() { _ in self.dragAmount = .zero }
+            )
     }
 }
 

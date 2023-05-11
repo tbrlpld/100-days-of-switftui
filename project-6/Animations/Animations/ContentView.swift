@@ -18,7 +18,11 @@ struct ContentView: View {
             .gesture(
                 DragGesture()
                     .onChanged() { self.dragAmount = $0.translation }
-                    .onEnded() { _ in self.dragAmount = .zero }
+                    .onEnded() { _ in
+                        withAnimation(.interpolatingSpring(stiffness: 100, damping: 6)) {
+                            self.dragAmount = .zero
+                        }
+                    }
             )
     }
 }

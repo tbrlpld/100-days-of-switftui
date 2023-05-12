@@ -42,6 +42,8 @@ struct ContentView: View {
     @State var playedRounds = 0
     @State var showGameOver = false
     
+    @State private var animationRotationDegrees = [0.0, 0.0, 0.0]
+    
     init() {
         self.countries = Self.getCountryArray()
         self.correctCountry = Self.getCorrectAnswer()
@@ -66,8 +68,12 @@ struct ContentView: View {
                         ForEach(0..<3) { number in
                             Button {
                                 self.handleAnswerSubmitted(answer: number)
+                                withAnimation {
+                                    self.animationRotationDegrees[number] += 360
+                                }
                             } label: {
                                 Flag(self.countries[number].lowercased())
+                                    .rotation3DEffect(.degrees(self.animationRotationDegrees[number]), axis: (x: 0, y: 1, z:0))
                             }
                         }
                     }

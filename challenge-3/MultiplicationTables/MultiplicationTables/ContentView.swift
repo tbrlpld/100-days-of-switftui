@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    static var maxNumberRange = 2..<13
+    static var maxNumberRange = 2...12
     @State private var maxMultiplicationNumber = 2
     
     static var possibleNumberOfRounds = [5, 10, 20]
@@ -17,7 +17,11 @@ struct ContentView: View {
     var body: some View {
         Form {
             Section {
-                Stepper("Max num: \(self.maxMultiplicationNumber)", value: self.$maxMultiplicationNumber)
+                Stepper(
+                    "Max num: \(self.maxMultiplicationNumber)",
+                    value: self.$maxMultiplicationNumber,
+                    in: Self.maxNumberRange
+                )
                 Picker("Number of rounds", selection: self.$maxNumberOfRounds) {
                     ForEach(Self.possibleNumberOfRounds, id: \.self) {
                         Text("\($0) rounds")
@@ -46,7 +50,7 @@ struct ContentView: View {
     }
     
     func getSelectedRange() -> Range<Int> {
-        return Range(uncheckedBounds: (lower: 2, upper: 5))
+        return Range(uncheckedBounds: (lower: 2, upper: self.maxMultiplicationNumber + 1))
     }
 }
 

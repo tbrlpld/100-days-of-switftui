@@ -8,14 +8,21 @@
 import SwiftUI
 
 struct ContentView: View {
+    static var numberRange = 2..<13
+    @State private var maxMultiplicationNumber = 2
+    
+    static var possibleNumberOfRounds = [5, 10, 20]
+    @State private var maxNumberOfRounds = Self.possibleNumberOfRounds[0]
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        Form {
+            Stepper("Max num: \(self.maxMultiplicationNumber)", value: self.$maxMultiplicationNumber)
+            Picker("Number of rounds", selection: self.$maxNumberOfRounds) {
+                ForEach(Self.possibleNumberOfRounds, id: \.self) {
+                    Text("\($0) rounds")
+                }
+            }
         }
-        .padding()
     }
 }
 

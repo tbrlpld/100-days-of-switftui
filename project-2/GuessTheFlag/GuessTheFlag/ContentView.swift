@@ -69,7 +69,7 @@ struct ContentView: View {
                         ForEach(0..<3) { number in
                             Button {
                                 self.handleAnswerSubmitted(answer: number)
-                                self.animateFlags(selectedFlag: number)
+                                self.animateFlagSelection(selectedFlag: number)
                             } label: {
                                 Flag(self.countries[number].lowercased())
                                     .opacity(self.animationOpacity[number])
@@ -101,7 +101,6 @@ struct ContentView: View {
         } message: {
             Text("You got \(self.score) of \(self.playedRounds) guesses correct.")
         }
-
     }
     
     static func getCountryArray() -> [String] {
@@ -136,11 +135,13 @@ struct ContentView: View {
     }
     
     func askQuestion() {
-        self.countries = Self.getCountryArray()
-        self.correctCountry = Self.getCorrectAnswer()
+        withAnimation {
+            self.correctCountry = Self.getCorrectAnswer()
+            self.countries = Self.getCountryArray()
+            self.animationOpacity = [1.0, 1.0, 1.0]
+            self.animationScale = [1.0, 1.0, 1.0]
+        }
         self.responseMessage = ""
-        self.animationOpacity = [1.0, 1.0, 1.0]
-        self.animationScale = [1.0, 1.0, 1.0]
     }
     
     func updateStateForCorrectAnswer() {
@@ -176,7 +177,7 @@ struct ContentView: View {
         return self.playedRounds >= self.maxRounds
     }
     
-    func animateFlags(selectedFlag: Int) {
+    func animateFlagSelection(selectedFlag: Int) {
         withAnimation {
             for i in 0...2 {
                 self.animationOpacity[i] = i != selectedFlag ? 0.25 : 1.0

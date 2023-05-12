@@ -42,8 +42,8 @@ struct ContentView: View {
     @State var playedRounds = 0
     @State var showGameOver = false
     
-    @State private var animationRotationDegrees = [0.0, 0.0, 0.0]
     @State private var animationOpacity = [1.0, 1.0, 1.0]
+    @State private var animationScale = [1.0, 1.0, 1.0]
     
     init() {
         self.countries = Self.getCountryArray()
@@ -72,8 +72,8 @@ struct ContentView: View {
                                 self.animateFlags(selectedFlag: number)
                             } label: {
                                 Flag(self.countries[number].lowercased())
-                                    .rotation3DEffect(.degrees(self.animationRotationDegrees[number]), axis: (x: 0, y: 1, z:0))
                                     .opacity(self.animationOpacity[number])
+                                    .scaleEffect(self.animationScale[number])
                             }
                         }
                     }
@@ -139,8 +139,8 @@ struct ContentView: View {
         self.countries = Self.getCountryArray()
         self.correctCountry = Self.getCorrectAnswer()
         self.responseMessage = ""
-        self.animationRotationDegrees = [0.0, 0.0, 0.0]
         self.animationOpacity = [1.0, 1.0, 1.0]
+        self.animationScale = [1.0, 1.0, 1.0]
     }
     
     func updateStateForCorrectAnswer() {
@@ -178,9 +178,9 @@ struct ContentView: View {
     
     func animateFlags(selectedFlag: Int) {
         withAnimation {
-            self.animationRotationDegrees[selectedFlag] += 360
             for i in 0...2 {
                 self.animationOpacity[i] = i != selectedFlag ? 0.25 : 1.0
+                self.animationScale[i] = i != selectedFlag ? 0.8 : 1.2
             }
         }
     }

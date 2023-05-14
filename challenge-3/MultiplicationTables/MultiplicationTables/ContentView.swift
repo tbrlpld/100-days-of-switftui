@@ -17,6 +17,7 @@ struct ContentView: View {
         self.firstFactor * self.secondFactor
     }
     @State private var answer: Int? = nil
+    @FocusState private var answerInputFocused: Bool
     
     @State private var showResponse = false
     @State private var responseTitle = "Response"
@@ -49,12 +50,28 @@ struct ContentView: View {
                 Text("What is \(self.firstFactor) x \(self.secondFactor)?")
                     .font(.title2)
                     .bold()
-                TextField("Your answer", value: self.$answer, format: .number)
+                TextField(
+                    "Your answer",
+                    value: self.$answer,
+                    format: .number
+                )
+                    .focused(self.$answerInputFocused)
                     .multilineTextAlignment(.trailing)
                     .font(.largeTitle)
                     .bold()
+                    .keyboardType(.numberPad)
                 Text("\(self.score) points")
             }
+        }
+        .toolbar {
+            ToolbarItemGroup(placement: .keyboard) {
+                Spacer()
+                Button("Done") {
+                    self.answerInputFocused = false
+                    self.checkAnswer()
+                }
+            }
+            
         }
         .onAppear {
             self.askQuestion()
@@ -70,7 +87,7 @@ struct ContentView: View {
         .alert("Game over", isPresented: self.$showGameOver) {
             Button("Ok", role: .cancel) { self.handleGameOverDismissed() }
         } message: {
-            Text("You scored \(self.score)\nin \(self.activeRound) rounds")
+            Text("You scored \(self.score) points\nin \(self.activeRound) rounds")
         }
     }
     

@@ -55,10 +55,6 @@ struct ContentView: View {
                     .bold()
                 Text("\(self.score) points")
             }
-            
-            Button("Ask") {
-                self.askQuestion()
-            }
         }
         .onAppear {
             self.askQuestion()

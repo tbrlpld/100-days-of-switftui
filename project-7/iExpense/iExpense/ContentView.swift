@@ -7,26 +7,31 @@
 
 import SwiftUI
 
-struct CustomView: View {
-    @Environment(\.dismiss) var dismiss
-    
-    @State var name: String
-    
-    var body: some View {
-        Button("Bye \( self.name )") { self.dismiss() }
-    }
-}
-
 struct ContentView: View {
-    @State private var isShowingSheet = false
+    @State private var numbers = [Int]()
+    @State private var activeNumber = 1
     
     var body: some View {
         VStack {
-            Button("Show sheet") {self.isShowingSheet.toggle()}
+            List {
+                ForEach(self.numbers, id: \.self) {
+                    Text("Row \($0)")
+                }
+                .onDelete {indexSet in self.deleteNumber(at: indexSet) }
+                
+            }
+            Button("Add number") { self.addNumber() }
         }
-        .sheet(isPresented: self.$isShowingSheet) {
-            CustomView(name: "World")
-        }
+    }
+    
+    func addNumber() {
+        self.numbers.append(self.activeNumber)
+        self.activeNumber += 1
+    }
+    
+    func deleteNumber(at indexSet: IndexSet) {
+        self.numbers.remove(atOffsets: indexSet)
+        
     }
 }
 

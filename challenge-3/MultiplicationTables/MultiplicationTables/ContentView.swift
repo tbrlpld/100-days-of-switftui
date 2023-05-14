@@ -13,6 +13,14 @@ struct ContentView: View {
     
     @State private var firstFactor = 1
     @State private var secondFactor = 1
+    private var correctAnswer: Int {
+        self.firstFactor * self.secondFactor
+    }
+    @State private var answer: Int? = nil
+    
+    @State private var showResponse = false
+    @State private var responseTitle = "Response"
+    @State private var responseMessage = ""
     
     static var possibleNumberOfRounds = [5, 10, 20]
     @State private var maxNumberOfRounds = Self.possibleNumberOfRounds[0]
@@ -36,6 +44,10 @@ struct ContentView: View {
                 Text("What is \(self.firstFactor) x \(self.secondFactor)?")
                     .font(.title2)
                     .bold()
+                TextField("Your answer", value: self.$answer, format: .number)
+                    .multilineTextAlignment(.trailing)
+                    .font(.largeTitle)
+                    .bold()
             }
             
             Button("Ask") {
@@ -45,13 +57,42 @@ struct ContentView: View {
         .onAppear {
             self.askQuestion()
         }
+        .onSubmit {
+            self.checkAnswer()
+        }
+        .alert(self.responseTitle, isPresented: self.$showResponse) {
+            Button("Ok", role: .cancel) { self.handleResponseDismissed() }
+        } message: {
+            Text(self.responseMessage)
+        }
     }
     
     func askQuestion() {
         print("Asking")
+        self.answer = nil
+        self.responseTitle = ""
+        self.responseMessage = ""
         self.firstFactor = self.getRandomNumber()
         self.secondFactor = self.getRandomNumber()
         print("\(self.firstFactor) x \(self.secondFactor)")
+    }
+    
+    func checkAnswer() {
+        print("Checking")
+        if self.answer == self.correctAnswer {
+            self.responseTitle = "Correct"
+            self.responseMessage = "Well done. That is correct."
+        } else {
+            self.responseTitle = "Not correct"
+            self.responseMessage = "Sorry that was not correct.\n\n\(self.firstFactor) x \(self.secondFactor) is \(self.correctAnswer)"
+        }
+        print("Showing response")
+        self.showResponse = true
+    }
+    
+    func handleResponseDismissed() {
+        print("Dismissing the reponse")
+        self.askQuestion()
     }
     
     func getRandomNumber() -> Int {

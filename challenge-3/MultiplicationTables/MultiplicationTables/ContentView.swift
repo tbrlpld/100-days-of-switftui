@@ -11,6 +11,9 @@ struct ContentView: View {
     static var maxNumberRange = 2...12
     @State private var maxMultiplicationNumber = 2
     
+    @State private var firstFactor = 1
+    @State private var secondFactor = 1
+    
     static var possibleNumberOfRounds = [5, 10, 20]
     @State private var maxNumberOfRounds = Self.possibleNumberOfRounds[0]
     
@@ -18,7 +21,7 @@ struct ContentView: View {
         Form {
             Section {
                 Stepper(
-                    "Max num: \(self.maxMultiplicationNumber)",
+                    "Include numbers up to \(self.maxMultiplicationNumber)",
                     value: self.$maxMultiplicationNumber,
                     in: Self.maxNumberRange
                 )
@@ -27,6 +30,12 @@ struct ContentView: View {
                         Text("\($0) rounds")
                     }
                 }
+            }
+            
+            Section {
+                Text("What is \(self.firstFactor) x \(self.secondFactor)?")
+                    .font(.title2)
+                    .bold()
             }
             
             Button("Ask") {
@@ -40,7 +49,9 @@ struct ContentView: View {
     
     func askQuestion() {
         print("Asking")
-        print(self.getRandomNumber())
+        self.firstFactor = self.getRandomNumber()
+        self.secondFactor = self.getRandomNumber()
+        print("\(self.firstFactor) x \(self.secondFactor)")
     }
     
     func getRandomNumber() -> Int {
@@ -50,7 +61,7 @@ struct ContentView: View {
     }
     
     func getSelectedRange() -> Range<Int> {
-        return Range(uncheckedBounds: (lower: 2, upper: self.maxMultiplicationNumber + 1))
+        return Range(uncheckedBounds: (lower: 1, upper: self.maxMultiplicationNumber + 1))
     }
 }
 

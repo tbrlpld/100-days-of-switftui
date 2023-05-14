@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    static var maxNumberRange = 2...12
+    static private var maxNumberRange = 2...12
     @State private var maxMultiplicationNumber = 2
     
     @State private var firstFactor = 1
@@ -22,8 +22,12 @@ struct ContentView: View {
     @State private var responseTitle = "Response"
     @State private var responseMessage = ""
     
-    static var possibleNumberOfRounds = [5, 10, 20]
+    static private var possibleNumberOfRounds = [5, 10, 20]
     @State private var maxNumberOfRounds = Self.possibleNumberOfRounds[0]
+    @State private var activeRound = 0
+    @State private var showGameOver = false
+    
+    @State private var score = 0
     
     var body: some View {
         Form {
@@ -41,6 +45,7 @@ struct ContentView: View {
             }
             
             Section {
+                Text("Round \(self.activeRound)")
                 Text("What is \(self.firstFactor) x \(self.secondFactor)?")
                     .font(.title2)
                     .bold()
@@ -48,6 +53,7 @@ struct ContentView: View {
                     .multilineTextAlignment(.trailing)
                     .font(.largeTitle)
                     .bold()
+                Text("\(self.score) points")
             }
             
             Button("Ask") {
@@ -65,10 +71,16 @@ struct ContentView: View {
         } message: {
             Text(self.responseMessage)
         }
+        .alert("Game over", isPresented: self.$showGameOver) {
+            Button("Ok", role: .cancel) { self.handleGameOverDismissed() }
+        } message: {
+            Text("You scored \(self.score)\nin \(self.activeRound) rounds")
+        }
     }
     
     func askQuestion() {
         print("Asking")
+        self.activeRound += 1
         self.answer = nil
         self.responseTitle = ""
         self.responseMessage = ""
@@ -82,6 +94,7 @@ struct ContentView: View {
         if self.answer == self.correctAnswer {
             self.responseTitle = "Correct"
             self.responseMessage = "Well done. That is correct."
+            self.score += 1
         } else {
             self.responseTitle = "Not correct"
             self.responseMessage = "Sorry that was not correct.\n\n\(self.firstFactor) x \(self.secondFactor) is \(self.correctAnswer)"
@@ -92,6 +105,17 @@ struct ContentView: View {
     
     func handleResponseDismissed() {
         print("Dismissing the reponse")
+        guard self.activeRound < self.maxNumberOfRounds else {
+            self.showGameOver = true
+            return
+        }
+        
+        self.askQuestion()
+    }
+    
+    func handleGameOverDismissed() {
+        self.score = 0
+        self.activeRound = 0
         self.askQuestion()
     }
     

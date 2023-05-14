@@ -8,10 +8,12 @@
 import SwiftUI
 
 struct CustomView: View {
+    @Environment(\.dismiss) var dismiss
+    
     @State var name: String
     
     var body: some View {
-        Text("Hello \( self.name )")
+        Button("Bye \( self.name )") { self.dismiss() }
     }
 }
 

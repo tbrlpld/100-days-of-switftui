@@ -16,8 +16,17 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(self.expenses.items) {
-                    Text($0.name)
+                ForEach(self.expenses.items) { item in
+                    HStack {
+                        VStack(alignment: .leading){
+                            Text(item.name)
+                                .font(.headline)
+                            Text(item.type)
+                                .font(.subheadline)
+                        }
+                        Spacer()
+                        Text(item.amount, format: .currency(code: "USD"))
+                    }
                 }
                 .onDelete(perform: self.removeItem)
             }

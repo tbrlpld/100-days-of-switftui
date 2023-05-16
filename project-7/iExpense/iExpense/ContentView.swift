@@ -24,6 +24,7 @@ struct ContentView: View {
             .navigationTitle("iExpense")
             .toolbar {
                 Button {
+                    print("Showing add view")
                     self.isShowingAddExpenseView = true
                 } label: {
                     Text("Add")
@@ -36,6 +37,7 @@ struct ContentView: View {
     }
     
     func removeItem (at offset: IndexSet) {
+        print("Deleting item")
         self.expenses.items.remove(atOffsets: offset)
     }
 }

@@ -34,6 +34,7 @@ struct AddExpenseView: View {
             .navigationTitle("Add expense")
             .toolbar {
                 Button("Save") {
+                    print("Saving item")
                     let item = ExpenseItem(
                         name: self.name,
                         type: self.type,

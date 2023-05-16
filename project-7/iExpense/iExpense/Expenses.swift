@@ -9,15 +9,17 @@ import Foundation
 
 
 class Expenses: ObservableObject {
-    @Published var items = [ExpenseItem]() {
+    @Published var items: [ExpenseItem] {
         didSet {
             print("Items were updated, saving to user data.")
             let encoder = JSONEncoder()
-            guard let encodedData = try? encoder.encode(items) else {
+            guard let encodedData = try? encoder.encode(self.items) else {
                 print("Could not encode data")
                 return
             }
+            print(encodedData)
             UserDefaults.standard.set(encodedData, forKey: "items")
+            print("Done storing data.")
         }
     }
     
@@ -26,17 +28,21 @@ class Expenses: ObservableObject {
         // Set default value
         self.items = []
         
+        print("Pulling data from user defaults")
         let decoder = JSONDecoder()
         guard let encodedData = UserDefaults.standard.data(forKey: "items") else {
             print("No data found in user defaults.")
             return
-            
         }
-        guard let items = try? decoder.decode([ExpenseItem].self, from: encodedData) else {
+        print(encodedData)
+        
+        print("Decoding data from user defaults")
+        guard let decodedData = try? decoder.decode([ExpenseItem].self, from: encodedData) else {
             print("Could not decode expenses from user defaults")
             return
         }
+        print(decodedData)
         
-        self.items = items
+        self.items = decodedData
     }
 }

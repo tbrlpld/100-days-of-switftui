@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ExpenseListView: View {
     var items: [ExpenseItem]
-    var deleteMethod: (IndexSet) -> Void
+    var deleteMethod: (ExpenseItem) -> Void
     
     var body: some View {
         ForEach(self.items) { item in
@@ -26,7 +26,7 @@ struct ExpenseListView: View {
                     .foregroundColor(self.amountColor(amount: item.amount))
             }
         }
-        .onDelete(perform: self.deleteMethod)
+        .onDelete(perform: self.removeItem)
     }
     
     func amountColor(amount: Double) -> Color {
@@ -38,11 +38,27 @@ struct ExpenseListView: View {
             return .red
         }
     }
+    
+    func removeItem (at offset: IndexSet) {
+        print("Determining item to remove.")
+        // Get index
+        guard let index = offset.first else { return }
+        // Get item at index
+        let item = self.items[index]
+        self.deleteMethod(item)
+    }
 }
 
 
 struct ContentView: View {
     @StateObject private var expenses = Expenses()
+    
+    var personalExpenseItems: [ExpenseItem] {
+        self.expenses.items.filter { $0.type == "Personal" }
+    }
+    var businessExpenseItems: [ExpenseItem] {
+        self.expenses.items.filter { $0.type == "Business" }
+    }
     
     @State private var isShowingAddExpenseView = false
     
@@ -50,7 +66,10 @@ struct ContentView: View {
         NavigationView {
             List {
                 Section ("Personal") {
-                    ExpenseListView(items: self.expenses.items, deleteMethod: self.removeItem)
+                    ExpenseListView(items: self.personalExpenseItems, deleteMethod: self.removeItem)
+                }
+                Section ("Business") {
+                    ExpenseListView(items: self.businessExpenseItems, deleteMethod: self.removeItem)
                 }
             }
             .navigationTitle("iExpense")
@@ -68,17 +87,8 @@ struct ContentView: View {
         }
     }
     
-    func removeItem (at offset: IndexSet) {
-        print("Deleting item")
-        // Get index
-        guard let index = offset.first else { return }
-        // Get item at index
-        let item = self.expenses.items[index]
-        // Delete the list item that matches the selected item.
-        // Currently this makes no sense because the array from which we retrieve the reference
-        // is the same as the one we are manupilating.
-        // But, this unlocks using different lists.
-        // E.g. the item may be selected on a sublist, which will have different indecies than the list we delete from.
+    func removeItem (_ item: ExpenseItem) {
+        print("Removing item: \(item.name)")
         self.expenses.items.removeAll { expenseItem in
             expenseItem.id == item.id
         }

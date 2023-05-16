@@ -25,13 +25,14 @@ class Expenses: ObservableObject {
     
     init() {
         print("Restoring expense items")
-        // Set default value
-        self.items = []
+        
+        let defaultItems = [ExpenseItem]()
         
         print("Pulling data from user defaults")
         let decoder = JSONDecoder()
         guard let encodedData = UserDefaults.standard.data(forKey: "items") else {
             print("No data found in user defaults.")
+            self.items = defaultItems
             return
         }
         print(encodedData)
@@ -39,6 +40,7 @@ class Expenses: ObservableObject {
         print("Decoding data from user defaults")
         guard let decodedData = try? decoder.decode([ExpenseItem].self, from: encodedData) else {
             print("Could not decode expenses from user defaults")
+            self.items = defaultItems
             return
         }
         print(decodedData)

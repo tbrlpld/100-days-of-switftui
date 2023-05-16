@@ -8,6 +8,39 @@
 import SwiftUI
 
 
+struct ExpenseListView: View {
+    var items: [ExpenseItem]
+    var deleteMethod: (IndexSet) -> Void
+    
+    var body: some View {
+        ForEach(self.items) { item in
+            HStack {
+                VStack(alignment: .leading){
+                    Text(item.name)
+                        .font(.headline)
+                    Text(item.type)
+                        .font(.subheadline)
+                }
+                Spacer()
+                Text(item.amount, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
+                    .foregroundColor(self.amountColor(amount: item.amount))
+            }
+        }
+        .onDelete(perform: self.deleteMethod)
+    }
+    
+    func amountColor(amount: Double) -> Color {
+        if amount < 10 {
+            return .gray
+        } else if amount < 100 {
+            return .black
+        } else {
+            return .red
+        }
+    }
+}
+
+
 struct ContentView: View {
     @StateObject private var expenses = Expenses()
     
@@ -16,20 +49,9 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(self.expenses.items) { item in
-                    HStack {
-                        VStack(alignment: .leading){
-                            Text(item.name)
-                                .font(.headline)
-                            Text(item.type)
-                                .font(.subheadline)
-                        }
-                        Spacer()
-                        Text(item.amount, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
-                            .foregroundColor(self.amountColor(amount: item.amount))
-                    }
+                Section ("Personal") {
+                    ExpenseListView(items: self.expenses.items, deleteMethod: self.removeItem)
                 }
-                .onDelete(perform: self.removeItem)
             }
             .navigationTitle("iExpense")
             .toolbar {
@@ -61,16 +83,6 @@ struct ContentView: View {
             expenseItem.id == item.id
         }
       }
-    
-    func amountColor(amount: Double) -> Color {
-        if amount < 10 {
-            return .gray
-        } else if amount < 100 {
-            return .black
-        } else {
-            return .red
-        }
-    }
 }
 
 

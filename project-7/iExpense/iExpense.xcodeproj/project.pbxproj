@@ -13,6 +13,7 @@
 		001AFC182A11853900BB3B8D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 001AFC172A11853900BB3B8D /* Preview Assets.xcassets */; };
 		00E0F5522A131E7700331841 /* ExpenseItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E0F5512A131E7700331841 /* ExpenseItem.swift */; };
 		00E0F5542A131ECA00331841 /* Expenses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E0F5532A131ECA00331841 /* Expenses.swift */; };
+		00E0F5562A13252200331841 /* AddExpenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E0F5552A13252200331841 /* AddExpenseView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +24,7 @@
 		001AFC172A11853900BB3B8D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		00E0F5512A131E7700331841 /* ExpenseItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseItem.swift; sourceTree = "<group>"; };
 		00E0F5532A131ECA00331841 /* Expenses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Expenses.swift; sourceTree = "<group>"; };
+		00E0F5552A13252200331841 /* AddExpenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExpenseView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 			isa = PBXGroup;
 			children = (
 				001AFC122A11853600BB3B8D /* ContentView.swift */,
+				00E0F5552A13252200331841 /* AddExpenseView.swift */,
 				00E0F5512A131E7700331841 /* ExpenseItem.swift */,
 				00E0F5532A131ECA00331841 /* Expenses.swift */,
 				001AFC102A11853600BB3B8D /* iExpenseApp.swift */,
@@ -145,6 +148,7 @@
 			files = (
 				00E0F5542A131ECA00331841 /* Expenses.swift in Sources */,
 				001AFC132A11853600BB3B8D /* ContentView.swift in Sources */,
+				00E0F5562A13252200331841 /* AddExpenseView.swift in Sources */,
 				00E0F5522A131E7700331841 /* ExpenseItem.swift in Sources */,
 				001AFC112A11853600BB3B8D /* iExpenseApp.swift in Sources */,
 			);

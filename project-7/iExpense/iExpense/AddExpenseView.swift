@@ -30,7 +30,7 @@ struct AddExpenseView: View {
                 }
                 .pickerStyle(.navigationLink)
                 
-                TextField("Amount", value: self.$amount, format: .currency(code: "USD"))
+                TextField("Amount", value: self.$amount, format: .currency(code: Locale.current.currency?.identifier ?? "USD" ))
                     .keyboardType(.decimalPad)
             }
             .navigationTitle("Add expense")

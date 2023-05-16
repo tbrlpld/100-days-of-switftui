@@ -32,6 +32,16 @@ struct AddExpenseView: View {
                     .keyboardType(.decimalPad)
             }
             .navigationTitle("Add expense")
+            .toolbar {
+                Button("Save") {
+                    let item = ExpenseItem(
+                        name: self.name,
+                        type: self.type,
+                        amount: self.amount
+                    )
+                    self.expenses.items.append(item)
+                }
+            }
         }
         
     }

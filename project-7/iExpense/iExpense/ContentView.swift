@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ExpenseListView: View {
     var items: [ExpenseItem]
-    var deleteMethod: (ExpenseItem) -> Void
+    var deleteMethod: ([ExpenseItem]) -> Void
     
     var body: some View {
         ForEach(self.items) { item in
@@ -26,7 +26,7 @@ struct ExpenseListView: View {
                     .foregroundColor(self.amountColor(amount: item.amount))
             }
         }
-        .onDelete(perform: self.removeItem)
+        .onDelete(perform: self.removeItems)
     }
     
     func amountColor(amount: Double) -> Color {
@@ -39,13 +39,13 @@ struct ExpenseListView: View {
         }
     }
     
-    func removeItem (at offset: IndexSet) {
-        print("Determining item to remove.")
-        // Get index
-        guard let index = offset.first else { return }
-        // Get item at index
-        let item = self.items[index]
-        self.deleteMethod(item)
+    func removeItems (at offsets: IndexSet) {
+        print("Determining items to remove.")
+        var items = [ExpenseItem]()
+        for i in offsets {
+            items.append(self.items[i])
+        }
+        self.deleteMethod(items)
     }
 }
 
@@ -66,10 +66,10 @@ struct ContentView: View {
         NavigationView {
             List {
                 Section ("Personal") {
-                    ExpenseListView(items: self.personalExpenseItems, deleteMethod: self.removeItem)
+                    ExpenseListView(items: self.personalExpenseItems, deleteMethod: self.removeItems)
                 }
                 Section ("Business") {
-                    ExpenseListView(items: self.businessExpenseItems, deleteMethod: self.removeItem)
+                    ExpenseListView(items: self.businessExpenseItems, deleteMethod: self.removeItems)
                 }
             }
             .navigationTitle("iExpense")
@@ -87,12 +87,12 @@ struct ContentView: View {
         }
     }
     
-    func removeItem (_ item: ExpenseItem) {
-        print("Removing item: \(item.name)")
-        self.expenses.items.removeAll { expenseItem in
-            expenseItem.id == item.id
+    func removeItems (_ items: [ExpenseItem]) {
+        print("Removing items: \(items)")
+        for item in items {
+            self.expenses.items.removeAll { $0 == item }
         }
-      }
+    }
 }
 
 

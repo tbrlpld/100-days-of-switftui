@@ -8,7 +8,7 @@
 import Foundation
 
 
-struct ExpenseItem: Identifiable, Codable {
+struct ExpenseItem: Identifiable, Codable, Equatable {
     // Using a variable here, so that it can be initialized when decoding an object.
     var id = UUID()
     let name: String

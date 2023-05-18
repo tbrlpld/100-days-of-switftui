@@ -8,16 +8,15 @@
 import SwiftUI
 
 struct ContentView: View {
+    let layout = [
+        GridItem(.adaptive(minimum: 80, maximum: 120))
+    ]
+    
     var body: some View {
-        NavigationView {
-            VStack {
-                NavigationLink {
-                    Text("The new screen")
-                } label: {
-                    Text("Tap me")
-                }
+        LazyVGrid(columns: self.layout) {
+            ForEach(0..<100) {
+                Text("Item \($0)")
             }
-            .navigationTitle("SwiftUI")
         }
     }
 }

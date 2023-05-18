@@ -9,12 +9,12 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
+        GeometryReader { geo in
             Image("example")
                 .resizable()
-                .scaledToFill()
-                .frame(width: 300, height: 300)
-                .clipped()
+                .scaledToFit()
+                .frame(width: geo.size.width * 0.8)
+                .frame(width: geo.size.width, height: geo.size.height)
         }
     }
 }

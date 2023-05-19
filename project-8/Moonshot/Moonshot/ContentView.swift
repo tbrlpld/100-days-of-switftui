@@ -27,7 +27,7 @@ struct ContentView: View {
                                 .frame(width: 80)
                             Text(mission.displayName)
                                 .font(.headline)
-                            Text(mission.launchDate ?? "N/A")
+                            Text(mission.displayLaunchDate)
                                 .font(.subheadline)
                         }
                         .padding(20)

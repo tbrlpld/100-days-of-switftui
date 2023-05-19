@@ -8,7 +8,7 @@
 import Foundation
 
 
-struct Mission: Codable {
+struct Mission: Codable, Identifiable {
     struct CrewRole: Codable {
         let name: String
         let role: String
@@ -18,4 +18,12 @@ struct Mission: Codable {
     let crew: [CrewRole]
     let launchDate: String?
     let description: String
+    
+    var displayName: String {
+        "Apollo \(self.id)"
+    }
+    
+    var imageName: String {
+        "apollo\(self.id)"
+    }
 }

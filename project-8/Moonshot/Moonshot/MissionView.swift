@@ -18,27 +18,29 @@ struct MissionView: View {
     
     var body: some View {
         GeometryReader { geo in
-            ScrollView {
-                VStack {
-                    Image(self.mission.imageName)
-                        .resizable()
-                        .scaledToFit()
-                       .frame(width: geo.size.width * 0.6)
-                    VStack(alignment: .leading) {
-                        Text("Mission Highlights")
-                            .font(.title.bold())
-                            .padding(.bottom, 5)
-                        Text(self.mission.description)
+            NavigationView {
+                ScrollView {
+                    VStack {
+                        Image(self.mission.imageName)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: geo.size.width * 0.6)
+                        VStack(alignment: .leading) {
+                            Text("Mission Highlights")
+                                .font(.title.bold())
+                                .padding(.bottom, 5)
+                            Text(self.mission.description)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal)
                     }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal)
+                    .padding(.bottom)
                 }
-                .padding(.bottom)
+                .navigationTitle(self.mission.displayName)
+                .navigationBarTitleDisplayMode(.inline)
+                .background(.darkBackground)
             }
         }
-        .navigationTitle(self.mission.displayName)
-        .navigationBarTitleDisplayMode(.inline)
-        .background(.darkBackground)
     }
     
     init(mission: Mission, astronauts: [String: Astronaut]) {

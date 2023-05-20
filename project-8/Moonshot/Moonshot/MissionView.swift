@@ -5,12 +5,38 @@
 //  Created by Tibor Leupold on 5/19/23.
 //
 import SwiftUI
-struct MissionView: View {
-    struct CrewMember {
-        let role: String
-        let astronaut: Astronaut
-    }
+
+struct CrewMember {
+    let role: String
+    let astronaut: Astronaut
+}
+
+struct CrewMemberView: View {
+    let crewMember: CrewMember
     
+    var body: some View {
+        HStack{
+            Image(self.crewMember.astronaut.id)
+                .resizable()
+                .scaledToFill()
+                .frame(width: 80, height: 80)
+                .clipShape(Circle())
+                .clipped()
+            
+            VStack(alignment: .leading) {
+                Text(self.crewMember.astronaut.name)
+                    .font(.headline)
+                
+                Text(self.crewMember.role)
+                    .font(.subheadline)
+                    .opacity(0.8)
+            }
+        }
+        .foregroundColor(.primary)
+    }
+}
+
+struct MissionView: View {
     var mission: Mission
     var crew: [CrewMember]
     
@@ -49,24 +75,7 @@ struct MissionView: View {
                                 NavigationLink {
                                     AstronautView(astronaut: crew.astronaut)
                                 } label: {
-                                    HStack{
-                                        Image(crew.astronaut.id)
-                                            .resizable()
-                                            .scaledToFill()
-                                            .frame(width: 80, height: 80)
-                                            .clipShape(Circle())
-                                            .clipped()
-                                        
-                                        VStack(alignment: .leading) {
-                                            Text(crew.astronaut.name)
-                                                .font(.headline)
-                                            
-                                            Text(crew.role)
-                                                .font(.subheadline)
-                                                .opacity(0.8)
-                                        }
-                                    }
-                                    .foregroundColor(.primary)
+                                    CrewMemberView(crewMember: crew)
                                 }
                             }
                         }
@@ -86,7 +95,7 @@ struct MissionView: View {
         
         self.crew = self.mission.crew.map { member in
             if let astronaut = astronauts[member.name] {
-                return Self.CrewMember(
+                return CrewMember(
                     role: member.role,
                     astronaut: astronaut
                 )

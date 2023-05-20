@@ -31,11 +31,12 @@ struct ContentView: View {
                                 .font(.subheadline)
                         }
                         .padding(20)
+                        .frame(maxWidth: .infinity)
                     }
-                    .frame(maxWidth: .infinity)
-                    .navigationTitle("Moonshot")
                 }
             }
+            .preferredColorScheme(.dark)
+            .navigationTitle("Moonshot")
         }
     }
 }

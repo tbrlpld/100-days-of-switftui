@@ -18,10 +18,18 @@ struct MissionView: View {
         GeometryReader { geo in
             ScrollView {
                 VStack {
-                    Image(self.mission.imageName)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: geo.size.width * 0.6)
+                    VStack {
+                        Image(self.mission.imageName)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: geo.size.width * 0.6)
+                        
+                        if let launchDate = self.mission.launchDate  {
+                            Text(launchDate.formatted(date: .long, time: .omitted))
+                                .padding(.top, 15)
+                        }
+                    }
+                    .padding(.bottom, 15)
                     VStack(alignment: .leading) {
                         Text("Mission Highlights")
                             .font(.title.bold())
@@ -95,7 +103,7 @@ struct MissionView_Previews: PreviewProvider {
     static let astronauts: [String: Astronaut] = Bundle.main.decode("astronauts.json")
     
     static var previews: some View {
-        MissionView(mission: self.missions[0], astronauts: self.astronauts)
+        MissionView(mission: self.missions[1], astronauts: self.astronauts)
             .preferredColorScheme(.dark)
     }
 }

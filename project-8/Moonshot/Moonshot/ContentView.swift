@@ -19,7 +19,7 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            ScrollView {
+            Group {
                 if self.isShowingAsList {
                     self.listView
                 } else {
@@ -38,32 +38,34 @@ struct ContentView: View {
     }
     
     var gridView: some View {
-        LazyVGrid(columns: self.layout){
-            ForEach(self.missions) { mission in
-                NavigationLink {
-                    MissionView(mission: mission, astronauts: self.astronauts)
-                } label: {
-                    VStack {
-                        Image(mission.imageName)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 80)
-                        Text(mission.displayName)
-                            .font(.headline)
-                        Text(mission.displayLaunchDate)
-                            .font(.subheadline)
-                            .opacity(0.8)
+        ScrollView {
+            LazyVGrid(columns: self.layout){
+                ForEach(self.missions) { mission in
+                    NavigationLink {
+                        MissionView(mission: mission, astronauts: self.astronauts)
+                    } label: {
+                        VStack {
+                            Image(mission.imageName)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 80)
+                            Text(mission.displayName)
+                                .font(.headline)
+                            Text(mission.displayLaunchDate)
+                                .font(.subheadline)
+                                .opacity(0.8)
+                        }
+                        .foregroundColor(.primary)
+                        .padding(20)
+                        .frame(maxWidth: .infinity)
                     }
-                    .foregroundColor(.primary)
-                    .padding(20)
-                    .frame(maxWidth: .infinity)
                 }
             }
         }
     }
     
     var listView: some View {
-        VStack {
+        List {
             ForEach(self.missions) { mission in
                 NavigationLink {
                     MissionView(mission: mission, astronauts: self.astronauts)
@@ -81,17 +83,15 @@ struct ContentView: View {
                                 .font(.subheadline)
                                 .opacity(0.8)
                         }
-                        
-                        Spacer()
-                        Image(systemName: "chevron.forward")
-                            .foregroundColor(.primary)
                     }
                     .foregroundColor(.primary)
-                    .padding(20)
                     .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.vertical, 20)
                 }
+                .listRowBackground(Color.darkBackground)
             }
         }
+        .listStyle(.plain)
     }
     
     var listViewToggleButtonText: String {

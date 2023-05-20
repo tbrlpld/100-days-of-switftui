@@ -30,9 +30,36 @@ struct MissionView: View {
                                 .font(.title.bold())
                                 .padding(.bottom, 5)
                             Text(self.mission.description)
+                            
+                            Text("Crew")
+                                .padding(.top, 15)
+                                .font(.title.bold())
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal)
+                        
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack(spacing: 15) {
+                                ForEach(self.crew, id: \.astronaut.id) { crew in
+                                    HStack(spacing: 0) {
+                                        Image(crew.astronaut.id)
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(height: 80)
+                                            .clipShape(Circle())
+                                        
+                                        VStack(alignment: .leading) {
+                                            Text(crew.astronaut.name)
+                                                .font(.headline)
+                                            
+                                            Text(crew.role)
+                                                .font(.subheadline)
+                                                .opacity(0.8)
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                     .padding(.bottom)
                 }

@@ -4,9 +4,7 @@
 //
 //  Created by Tibor Leupold on 5/19/23.
 //
-
 import SwiftUI
-
 struct MissionView: View {
     struct CrewMember {
         let role: String
@@ -18,57 +16,55 @@ struct MissionView: View {
     
     var body: some View {
         GeometryReader { geo in
-            NavigationView {
-                ScrollView {
-                    VStack {
-                        Image(self.mission.imageName)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: geo.size.width * 0.6)
-                        VStack(alignment: .leading) {
-                            Text("Mission Highlights")
-                                .font(.title.bold())
-                                .padding(.bottom, 5)
-                            Text(self.mission.description)
-                            
-                            Text("Crew")
-                                .padding(.top, 15)
-                                .font(.title.bold())
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.horizontal)
+            ScrollView {
+                VStack {
+                    Image(self.mission.imageName)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: geo.size.width * 0.6)
+                    VStack(alignment: .leading) {
+                        Text("Mission Highlights")
+                            .font(.title.bold())
+                            .padding(.bottom, 5)
+                        Text(self.mission.description)
                         
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack(spacing: 25) {
-                                ForEach(self.crew, id: \.astronaut.id) { crew in
-                                    HStack{
-                                        Image(crew.astronaut.id)
-                                            .resizable()
-                                            .scaledToFill()
-                                            .frame(width: 80, height: 80)
-                                            .clipShape(Circle())
-                                            .clipped()
+                        Text("Crew")
+                            .padding(.top, 15)
+                            .font(.title.bold())
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal)
+                    
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 25) {
+                            ForEach(self.crew, id: \.astronaut.id) { crew in
+                                HStack{
+                                    Image(crew.astronaut.id)
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width: 80, height: 80)
+                                        .clipShape(Circle())
+                                        .clipped()
+                                    
+                                    VStack(alignment: .leading) {
+                                        Text(crew.astronaut.name)
+                                            .font(.headline)
                                         
-                                        VStack(alignment: .leading) {
-                                            Text(crew.astronaut.name)
-                                                .font(.headline)
-                                            
-                                            Text(crew.role)
-                                                .font(.subheadline)
-                                                .opacity(0.8)
-                                        }
+                                        Text(crew.role)
+                                            .font(.subheadline)
+                                            .opacity(0.8)
                                     }
                                 }
                             }
-                            .padding(.horizontal)
                         }
+                        .padding(.horizontal)
                     }
-                    .padding(.bottom)
                 }
-                .navigationTitle(self.mission.displayName)
-                .navigationBarTitleDisplayMode(.inline)
-                .background(.darkBackground)
+                .padding(.bottom)
             }
+            .navigationTitle(self.mission.displayName)
+            .navigationBarTitleDisplayMode(.inline)
+            .background(.darkBackground)
         }
     }
     

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0006FFCE2A192A7000D0C0F3 /* AstronautView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0006FFCD2A192A7000D0C0F3 /* AstronautView.swift */; };
 		0055CC672A1700F3001ECEA3 /* astronauts.json in Resources */ = {isa = PBXBuildFile; fileRef = 0055CC652A1700F3001ECEA3 /* astronauts.json */; };
 		0055CC682A1700F3001ECEA3 /* missions.json in Resources */ = {isa = PBXBuildFile; fileRef = 0055CC662A1700F3001ECEA3 /* missions.json */; };
 		0055CC6A2A170174001ECEA3 /* Astronaut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0055CC692A170174001ECEA3 /* Astronaut.swift */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0006FFCD2A192A7000D0C0F3 /* AstronautView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AstronautView.swift; sourceTree = "<group>"; };
 		0055CC652A1700F3001ECEA3 /* astronauts.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = astronauts.json; sourceTree = "<group>"; };
 		0055CC662A1700F3001ECEA3 /* missions.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = missions.json; sourceTree = "<group>"; };
 		0055CC692A170174001ECEA3 /* Astronaut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Astronaut.swift; sourceTree = "<group>"; };
@@ -49,6 +51,7 @@
 		00EA3D022A15AFD20058D261 = {
 			isa = PBXGroup;
 			children = (
+				0006FFCD2A192A7000D0C0F3 /* AstronautView.swift */,
 				00EA3D0D2A15AFD20058D261 /* Moonshot */,
 				00EA3D0C2A15AFD20058D261 /* Products */,
 			);
@@ -162,6 +165,7 @@
 			files = (
 				00A7CC7D2A185EDF00D0888F /* MissionView.swift in Sources */,
 				0055CC6A2A170174001ECEA3 /* Astronaut.swift in Sources */,
+				0006FFCE2A192A7000D0C0F3 /* AstronautView.swift in Sources */,
 				0055CC6C2A17024F001ECEA3 /* Bundle-Decode.swift in Sources */,
 				00EA3D112A15AFD20058D261 /* ContentView.swift in Sources */,
 				0055CC6E2A17093B001ECEA3 /* Mission.swift in Sources */,

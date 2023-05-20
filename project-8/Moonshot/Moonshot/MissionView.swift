@@ -38,22 +38,27 @@ struct MissionView: View {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 25) {
                             ForEach(self.crew, id: \.astronaut.id) { crew in
-                                HStack{
-                                    Image(crew.astronaut.id)
-                                        .resizable()
-                                        .scaledToFill()
-                                        .frame(width: 80, height: 80)
-                                        .clipShape(Circle())
-                                        .clipped()
-                                    
-                                    VStack(alignment: .leading) {
-                                        Text(crew.astronaut.name)
-                                            .font(.headline)
+                                NavigationLink {
+                                    AstronautView(astronaut: crew.astronaut)
+                                } label: {
+                                    HStack{
+                                        Image(crew.astronaut.id)
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(width: 80, height: 80)
+                                            .clipShape(Circle())
+                                            .clipped()
                                         
-                                        Text(crew.role)
-                                            .font(.subheadline)
-                                            .opacity(0.8)
+                                        VStack(alignment: .leading) {
+                                            Text(crew.astronaut.name)
+                                                .font(.headline)
+                                            
+                                            Text(crew.role)
+                                                .font(.subheadline)
+                                                .opacity(0.8)
+                                        }
                                     }
+                                    .foregroundColor(.primary)
                                 }
                             }
                         }

@@ -11,7 +11,21 @@ struct AstronautView: View {
     let astronaut: Astronaut
     
     var body: some View {
-        Text(self.astronaut.name)
+        ScrollView {
+            VStack {
+                Image(self.astronaut.id)
+                    .resizable()
+                    .scaledToFit()
+                Text(self.astronaut.description)
+                    .padding()
+            }
+            .padding(.vertical)
+            .frame(maxWidth: .infinity)
+        }
+        .navigationTitle(self.astronaut.name)
+        .navigationBarTitleDisplayMode(.inline)
+        .background(.darkBackground)
+        .foregroundColor(.primary)
     }
 }
 
@@ -20,5 +34,6 @@ struct AstronautView_Previews: PreviewProvider {
     
     static var previews: some View {
         AstronautView(astronaut: self.astronauts["aldrin"]!)
+            .preferredColorScheme(.dark)
     }
 }

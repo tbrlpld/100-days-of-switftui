@@ -28,9 +28,15 @@ struct ContentView: View {
             }
             .preferredColorScheme(.dark)
             .navigationTitle("Moonshot")
-            .toolbar {
-                Button(self.listViewToggleButtonText) {
+            .toolbar{
+                Button {
                     self.isShowingAsList.toggle()
+                } label: {
+                    if self.isShowingAsList {
+                        Label("Show as grid", systemImage: "square.grid.2x2")
+                    } else {
+                        Label("Show as grid", systemImage: "list.dash")
+                    }
                 }
             }
             .background(.darkBackground)
@@ -92,10 +98,6 @@ struct ContentView: View {
             }
         }
         .listStyle(.plain)
-    }
-    
-    var listViewToggleButtonText: String {
-        self.isShowingAsList ? "Grid" : "List"
     }
 }
 

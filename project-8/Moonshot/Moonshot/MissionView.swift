@@ -39,14 +39,15 @@ struct MissionView: View {
                         .padding(.horizontal)
                         
                         ScrollView(.horizontal, showsIndicators: false) {
-                            HStack(spacing: 15) {
+                            HStack(spacing: 25) {
                                 ForEach(self.crew, id: \.astronaut.id) { crew in
-                                    HStack(spacing: 0) {
+                                    HStack{
                                         Image(crew.astronaut.id)
                                             .resizable()
                                             .scaledToFill()
-                                            .frame(height: 80)
+                                            .frame(width: 80, height: 80)
                                             .clipShape(Circle())
+                                            .clipped()
                                         
                                         VStack(alignment: .leading) {
                                             Text(crew.astronaut.name)
@@ -59,6 +60,7 @@ struct MissionView: View {
                                     }
                                 }
                             }
+                            .padding(.horizontal)
                         }
                     }
                     .padding(.bottom)

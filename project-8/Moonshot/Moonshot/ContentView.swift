@@ -20,18 +20,24 @@ struct ContentView: View {
             ScrollView {
                 LazyVGrid(columns: self.layout){
                     ForEach(self.missions) { mission in
-                        VStack {
-                            Image(mission.imageName)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 80)
-                            Text(mission.displayName)
-                                .font(.headline)
-                            Text(mission.displayLaunchDate)
-                                .font(.subheadline)
+                        NavigationLink {
+                            Text("Test")
+                        } label: {
+                            VStack {
+                                Image(mission.imageName)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 80)
+                                Text(mission.displayName)
+                                    .font(.headline)
+                                Text(mission.displayLaunchDate)
+                                    .font(.subheadline)
+                                    .opacity(0.8)
+                            }
+                            .foregroundColor(.primary)
+                            .padding(20)
+                            .frame(maxWidth: .infinity)
                         }
-                        .padding(20)
-                        .frame(maxWidth: .infinity)
                     }
                 }
             }

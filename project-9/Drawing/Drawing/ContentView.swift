@@ -7,17 +7,25 @@
 
 import SwiftUI
 
-struct Triangle: Shape {
+struct Triangle: InsettableShape {
+    var inset = 0.0
+    
     func path(in rect: CGRect) -> Path {
         var path = Path()
         
-        path.move(to: CGPoint(x: rect.midX, y: rect.minY))
-        path.addLine(to: CGPoint(x: rect.minX, y: rect.maxY))
-        path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
-        path.addLine(to: CGPoint(x: rect.midX, y: rect.minY))
+        path.move(to: CGPoint(x: rect.midX, y: rect.minY + self.inset))
+        path.addLine(to: CGPoint(x: rect.minX + self.inset, y: rect.maxY - self.inset))
+        path.addLine(to: CGPoint(x: rect.maxX - self.inset, y: rect.maxY - self.inset))
+        path.addLine(to: CGPoint(x: rect.midX, y: rect.minY + self.inset))
         path.closeSubpath()
         
         return path
+    }
+    
+    func inset(by amount: CGFloat) -> some InsettableShape {
+        var triangle = self
+        triangle.inset = amount
+        return triangle
     }
 }
 
@@ -25,8 +33,8 @@ struct Triangle: Shape {
 struct ContentView: View {
     var body: some View {
         Triangle()
-            .stroke(.primary, style: StrokeStyle(lineWidth: 10, lineCap: .round, lineJoin: .round))
-            .frame(width: 300, height: 300)
+            .strokeBorder(.red, style: StrokeStyle(lineWidth: 40, lineCap: .round, lineJoin: .round))
+            .frame(height: 300)
     }
 }
 

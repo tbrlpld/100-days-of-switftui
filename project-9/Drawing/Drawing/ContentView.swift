@@ -7,16 +7,26 @@
 
 import SwiftUI
 
+struct Triangle: Shape {
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        
+        path.move(to: CGPoint(x: rect.midX, y: rect.minY))
+        path.addLine(to: CGPoint(x: rect.minX, y: rect.maxY))
+        path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
+        path.addLine(to: CGPoint(x: rect.midX, y: rect.minY))
+        path.closeSubpath()
+        
+        return path
+    }
+}
+
+
 struct ContentView: View {
     var body: some View {
-        Path { path in
-            path.move(to: CGPoint(x:200, y:200))
-            path.addLine(to: CGPoint(x:100, y:350))
-            path.addLine(to: CGPoint(x:300, y:350))
-            path.addLine(to: CGPoint(x:200, y:200))
-            path.closeSubpath()
-        }
-        .stroke(.primary, style: StrokeStyle(lineWidth: 10, lineCap: .round, lineJoin: .round))
+        Triangle()
+            .stroke(.primary, style: StrokeStyle(lineWidth: 10, lineCap: .round, lineJoin: .round))
+            .frame(width: 300, height: 300)
     }
 }
 

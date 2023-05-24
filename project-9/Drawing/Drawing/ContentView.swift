@@ -7,35 +7,58 @@
 
 import SwiftUI
 
-struct Triangle: InsettableShape {
-    var insetAmount = 0.0
+struct Flower: Shape {
+    var petalWidth = 100.0
+    var offset = 0.0
+    
     
     func path(in rect: CGRect) -> Path {
         var path = Path()
         
-        path.move(to: CGPoint(x: rect.midX, y: rect.minY + self.insetAmount))
-        path.addLine(to: CGPoint(x: rect.minX + self.insetAmount, y: rect.maxY - self.insetAmount))
-        path.addLine(to: CGPoint(x: rect.maxX - self.insetAmount, y: rect.maxY - self.insetAmount))
-        path.addLine(to: CGPoint(x: rect.midX, y: rect.minY + self.insetAmount))
-        path.closeSubpath()
+        for number in stride(from: 0, to: 2 * Double.pi, by: Double.pi / 8) {
+            print(number)
+            let originalPetal = Path(ellipseIn: CGRect(x: -self.petalWidth / 2, y: 0, width: self.petalWidth, height: min(rect.width, rect.height) / 2.0 ))
+            
+            // Offset from the rotation point (this created the center of the flower)
+            let rotationPointOffset = CGAffineTransform(translationX: self.offset, y: 0)
+            // Rotates around the zero point
+            let rotation = CGAffineTransform(rotationAngle: number)
+            // Move to the center of the rect angle
+            let translateToCenter = CGAffineTransform(translationX: rect.width / 2, y: rect.height / 2)
+            let transformation = rotationPointOffset.concatenating(rotation).concatenating(translateToCenter)
+            
+            let transformedPetal = originalPetal.applying(transformation)
+            
+            path.addPath(transformedPetal)
+        }
         
         return path
-    }
-    
-    func inset(by amount: CGFloat) -> some InsettableShape {
-        var triangle = self
-        triangle.insetAmount = amount
-        return triangle
     }
 }
 
 
 struct ContentView: View {
+    @State private var offset = 0.0
+    @State private var width = 100.0
+    
     var body: some View {
-        Triangle()
-//            .stroke(.red, style: StrokeStyle(lineWidth: 40, lineCap: .round, lineJoin: .round))
-            .strokeBorder(.red, style: StrokeStyle(lineWidth: 40, lineCap: .round, lineJoin: .round))
-            .frame(height: 300)
+        VStack {
+            Flower(petalWidth: self.width, offset: self.offset)
+                .stroke(.red)
+                .frame(height: 300)
+            
+            VStack{
+                Text("Offset")
+                Slider(value: self.$offset, in: -100...100.0)
+            }
+            .padding()
+            
+            VStack{
+                Text("Width")
+                Slider(value: self.$width, in: 0...400.0)
+            }
+            .padding()
+        }
     }
 }
 

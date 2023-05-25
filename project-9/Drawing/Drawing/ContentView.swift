@@ -8,21 +8,45 @@
 import SwiftUI
 
 
+struct Checkerboard: Shape {
+    var rows = 4
+    var columns = 4
+    
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        
+        let fieldWidth = rect.width / Double(columns)
+        let fieldHeight = rect.height / Double(rows)
+        
+        for row in 0..<rows {
+            for column in 0..<columns {
+                if (row + column).isMultiple(of: 2) {
+                    let startX = Double(column) * fieldWidth
+                    let startY = Double(row) * fieldHeight
+                    path.addRect(CGRect(x: startX, y: startY, width: fieldWidth, height: fieldHeight))
+                }
+            }
+        }
+        
+        
+        return path
+    }
+}
+
 
 struct ContentView: View {
+    @State private var rows = 4
+    @State private var columns = 4
     
     var body: some View {
         VStack {
-            Text("Hello World")
+            Checkerboard(rows: self.rows, columns: self.columns)
                 .frame(width: 300, height: 300)
-                .border(
-                    ImagePaint(
-                        image: Image("example"),
-                        sourceRect: CGRect(x: 0.2, y: 0.2, width: 0.8, height: 0.8),
-                        scale: 1
-                    ),
-                    width: 30
-                )
+                .border(.black)
+                .onTapGesture {
+                    self.rows *= 2
+                    self.columns *= 2
+                }
         }
     }
 }

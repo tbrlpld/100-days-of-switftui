@@ -12,6 +12,16 @@ struct Checkerboard: Shape {
     var rows = 4
     var columns = 4
     
+    var animatableData: AnimatablePair<Double, Double> {
+        get {
+            AnimatableData(Double(self.rows), Double(self.columns))
+        }
+        set {
+            self.rows = Int(newValue.first)
+            self.columns = Int(newValue.second)
+        }
+    }
+    
     func path(in rect: CGRect) -> Path {
         var path = Path()
         
@@ -44,8 +54,10 @@ struct ContentView: View {
                 .frame(width: 300, height: 300)
                 .border(.black)
                 .onTapGesture {
-                    self.rows *= 2
-                    self.columns *= 2
+                    withAnimation{
+                        self.rows *= 2
+                        self.columns *= 2
+                    }
                 }
         }
     }

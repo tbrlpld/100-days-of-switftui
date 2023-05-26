@@ -16,10 +16,12 @@ struct AddHabitView: View {
     var body: some View {
         NavigationView {
             Form {
-                TextField(text: self.$name) {
-                    Text("Name")
-                }
-                
+                TextField("Name", text: self.$name)
+                TextField(
+                    "Description",
+                    text: self.$description,
+                    axis: .vertical
+                )
             }
             .navigationTitle(self.getNavigationTitle())
             .toolbar {

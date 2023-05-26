@@ -7,22 +7,27 @@
 
 import SwiftUI
 
+
 struct ContentView: View {
     @State private var isShowingAddHabitView = false
+    @ObservedObject var habitsData = HabitsData()
     
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
-        }
-        .onTapGesture {
-            self.isShowingAddHabitView = true
-        }
-        .padding()
-        .sheet(isPresented: self.$isShowingAddHabitView) {
-            AddHabitView()
+        NavigationView {
+            List {
+                ForEach(habitsData.habits) { habit in
+                    Text(habit.name)
+                }
+            }
+            .navigationTitle("Habits")
+            .toolbar {
+                Button("New") {
+                    self.isShowingAddHabitView = true
+                }
+            }
+            .sheet(isPresented: self.$isShowingAddHabitView) {
+                AddHabitView(habitsData: self.habitsData)
+            }
         }
     }
 }

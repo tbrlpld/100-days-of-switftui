@@ -12,6 +12,8 @@
 		0090012D2A216DC5008982B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0090012C2A216DC5008982B5 /* Assets.xcassets */; };
 		009001302A216DC5008982B5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0090012F2A216DC5008982B5 /* Preview Assets.xcassets */; };
 		009001372A217119008982B5 /* AddHabitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009001362A217119008982B5 /* AddHabitView.swift */; };
+		009001392A2176D6008982B5 /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009001382A2176D6008982B5 /* Habit.swift */; };
+		0090013B2A217C30008982B5 /* HabitsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0090013A2A217C30008982B5 /* HabitsData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +23,8 @@
 		0090012C2A216DC5008982B5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0090012F2A216DC5008982B5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		009001362A217119008982B5 /* AddHabitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHabitView.swift; sourceTree = "<group>"; };
+		009001382A2176D6008982B5 /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
+		0090013A2A217C30008982B5 /* HabitsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,7 +59,9 @@
 			children = (
 				009001362A217119008982B5 /* AddHabitView.swift */,
 				0090012A2A216DC1008982B5 /* ContentView.swift */,
+				009001382A2176D6008982B5 /* Habit.swift */,
 				009001282A216DC1008982B5 /* HabitsApp.swift */,
+				0090013A2A217C30008982B5 /* HabitsData.swift */,
 				0090012C2A216DC5008982B5 /* Assets.xcassets */,
 				0090012E2A216DC5008982B5 /* Preview Content */,
 			);
@@ -141,7 +147,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				0090012B2A216DC1008982B5 /* ContentView.swift in Sources */,
+				0090013B2A217C30008982B5 /* HabitsData.swift in Sources */,
 				009001292A216DC1008982B5 /* HabitsApp.swift in Sources */,
+				009001392A2176D6008982B5 /* Habit.swift in Sources */,
 				009001372A217119008982B5 /* AddHabitView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

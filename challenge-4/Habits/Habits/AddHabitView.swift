@@ -13,6 +13,8 @@ struct AddHabitView: View {
     @State private var name = ""
     @State private var description = ""
     
+    @StateObject var habitsData: HabitsData
+    
     var body: some View {
         NavigationView {
             Form {
@@ -26,6 +28,12 @@ struct AddHabitView: View {
             .navigationTitle(self.getNavigationTitle())
             .toolbar {
                 Button("Add") {
+                    self.habitsData.habits.append(
+                        Habit(
+                            name: self.name,
+                            description: self.description
+                        )
+                    )
                     self.dismiss()
                 }
             }
@@ -39,6 +47,6 @@ struct AddHabitView: View {
 
 struct AddHabitView_Previews: PreviewProvider {
     static var previews: some View {
-        AddHabitView()
+        AddHabitView(habitsData: HabitsData())
     }
 }

@@ -11,6 +11,11 @@ import SwiftUI
 struct Arrow: Shape {
     var lineWidth = 10.0
     
+    var animatableData: Double {
+        get { self.lineWidth }
+        set { self.lineWidth = newValue }
+    }
+    
     func path(in rect: CGRect) -> Path {
         var path = Path()
         
@@ -35,11 +40,12 @@ struct ContentView: View {
     var body: some View {
         VStack {
             Arrow(lineWidth: self.arrowLineWidth)
-                .fill(.black)
+                .fill(.primary)
                 .onTapGesture {
-                    self.arrowLineWidth *= 2
+                    withAnimation {
+                        self.arrowLineWidth *= 2
+                    }
                 }
-            
         }
     }
 }

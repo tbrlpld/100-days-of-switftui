@@ -7,7 +7,21 @@
 
 import SwiftUI
 
+struct AddHabitView: View {
+    var hideAction: () -> Void
+    
+    var body: some View {
+        Text("Hello too")
+            .onTapGesture {
+                self.hideAction()
+            }
+    }
+    
+}
+
 struct ContentView: View {
+    @State private var isShowingAddHabitView = false
+    
     var body: some View {
         VStack {
             Image(systemName: "globe")
@@ -15,7 +29,13 @@ struct ContentView: View {
                 .foregroundColor(.accentColor)
             Text("Hello, world!")
         }
+        .onTapGesture {
+            self.isShowingAddHabitView = true
+        }
         .padding()
+        .sheet(isPresented: self.$isShowingAddHabitView) {
+            AddHabitView { self.isShowingAddHabitView = false }
+        }
     }
 }
 

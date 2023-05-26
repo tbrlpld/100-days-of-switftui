@@ -8,36 +8,21 @@
 import SwiftUI
 
 
-struct Checkerboard: Shape {
-    var rows = 4
-    var columns = 4
-    
-    var animatableData: AnimatablePair<Double, Double> {
-        get {
-            AnimatableData(Double(self.rows), Double(self.columns))
-        }
-        set {
-            self.rows = Int(newValue.first)
-            self.columns = Int(newValue.second)
-        }
-    }
+struct Arrow: Shape {
+    var lineWidth = 10.0
     
     func path(in rect: CGRect) -> Path {
         var path = Path()
         
-        let fieldWidth = rect.width / Double(columns)
-        let fieldHeight = rect.height / Double(rows)
-        
-        for row in 0..<rows {
-            for column in 0..<columns {
-                if (row + column).isMultiple(of: 2) {
-                    let startX = Double(column) * fieldWidth
-                    let startY = Double(row) * fieldHeight
-                    path.addRect(CGRect(x: startX, y: startY, width: fieldWidth, height: fieldHeight))
-                }
-            }
-        }
-        
+        path.move(to: CGPoint(x: rect.minX, y: rect.midY))
+        path.addLine(to: CGPoint(x: rect.minX, y: rect.midY - lineWidth))
+        path.addLine(to: CGPoint(x: rect.maxX - 9 * lineWidth, y: rect.midY - lineWidth))
+        path.addLine(to: CGPoint(x: rect.maxX - 9 * lineWidth, y: rect.midY - 3 * lineWidth))
+        path.addLine(to: CGPoint(x: rect.maxX, y: rect.midY))
+        path.addLine(to: CGPoint(x: rect.maxX - 9 * lineWidth, y: rect.midY + 3 * lineWidth))
+        path.addLine(to: CGPoint(x: rect.maxX - 9 * lineWidth, y: rect.midY + lineWidth))
+        path.addLine(to: CGPoint(x: rect.minX, y: rect.midY + lineWidth))
+        path.closeSubpath()
         
         return path
     }
@@ -50,15 +35,9 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            Checkerboard(rows: self.rows, columns: self.columns)
-                .frame(width: 300, height: 300)
-                .border(.black)
-                .onTapGesture {
-                    withAnimation{
-                        self.rows *= 2
-                        self.columns *= 2
-                    }
-                }
+            Arrow()
+                .fill(.black)
+            
         }
     }
 }

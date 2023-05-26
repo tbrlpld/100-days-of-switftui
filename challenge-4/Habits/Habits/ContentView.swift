@@ -7,18 +7,6 @@
 
 import SwiftUI
 
-struct AddHabitView: View {
-    var hideAction: () -> Void
-    
-    var body: some View {
-        Text("Hello too")
-            .onTapGesture {
-                self.hideAction()
-            }
-    }
-    
-}
-
 struct ContentView: View {
     @State private var isShowingAddHabitView = false
     
@@ -34,7 +22,7 @@ struct ContentView: View {
         }
         .padding()
         .sheet(isPresented: self.$isShowingAddHabitView) {
-            AddHabitView { self.isShowingAddHabitView = false }
+            AddHabitView()
         }
     }
 }

@@ -30,13 +30,15 @@ struct Arrow: Shape {
 
 
 struct ContentView: View {
-    @State private var rows = 4
-    @State private var columns = 4
+    @State private var arrowLineWidth = 4.0
     
     var body: some View {
         VStack {
-            Arrow()
+            Arrow(lineWidth: self.arrowLineWidth)
                 .fill(.black)
+                .onTapGesture {
+                    self.arrowLineWidth *= 2
+                }
             
         }
     }

@@ -17,7 +17,9 @@ struct ContentView: View {
             List {
                 ForEach(habitsData.habits) { habit in
                     NavigationLink {
-                        HabitDetailView()
+                        HabitDetailView(habit: habit)
+                            .navigationTitle(habit.name)
+                            .navigationBarTitleDisplayMode(.inline)
                     } label: {
                         Text(habit.name)
                     }

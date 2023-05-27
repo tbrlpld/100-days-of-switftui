@@ -8,5 +8,10 @@
 import Foundation
 
 class HabitsData: ObservableObject {
-    @Published var habits = [Habit]()
+    @Published var habits: [Habit]
+    
+    init(habits: [Habit] = [Habit]()) {
+        self.habits = habits
+    }
+    
 }

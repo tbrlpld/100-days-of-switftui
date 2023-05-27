@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		002010282A226C6E0090A0AE /* HabitDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002010272A226C6E0090A0AE /* HabitDetailView.swift */; };
 		009001292A216DC1008982B5 /* HabitsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009001282A216DC1008982B5 /* HabitsApp.swift */; };
 		0090012B2A216DC1008982B5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0090012A2A216DC1008982B5 /* ContentView.swift */; };
 		0090012D2A216DC5008982B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0090012C2A216DC5008982B5 /* Assets.xcassets */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		002010272A226C6E0090A0AE /* HabitDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDetailView.swift; sourceTree = "<group>"; };
 		009001252A216DC1008982B5 /* Habits.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Habits.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		009001282A216DC1008982B5 /* HabitsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsApp.swift; sourceTree = "<group>"; };
 		0090012A2A216DC1008982B5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -59,6 +61,7 @@
 			children = (
 				009001362A217119008982B5 /* AddHabitView.swift */,
 				0090012A2A216DC1008982B5 /* ContentView.swift */,
+				002010272A226C6E0090A0AE /* HabitDetailView.swift */,
 				009001382A2176D6008982B5 /* Habit.swift */,
 				009001282A216DC1008982B5 /* HabitsApp.swift */,
 				0090013A2A217C30008982B5 /* HabitsData.swift */,
@@ -148,6 +151,7 @@
 			files = (
 				0090012B2A216DC1008982B5 /* ContentView.swift in Sources */,
 				0090013B2A217C30008982B5 /* HabitsData.swift in Sources */,
+				002010282A226C6E0090A0AE /* HabitDetailView.swift in Sources */,
 				009001292A216DC1008982B5 /* HabitsApp.swift in Sources */,
 				009001392A2176D6008982B5 /* Habit.swift in Sources */,
 				009001372A217119008982B5 /* AddHabitView.swift in Sources */,

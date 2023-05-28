@@ -19,7 +19,7 @@ struct ContentView: View {
                     NavigationLink {
                         HabitDetailView(habit: habit)
                             .navigationTitle(habit.name)
-                            .navigationBarTitleDisplayMode(.inline)
+                            .navigationBarTitleDisplayMode(.large)
                     } label: {
                         Text(habit.name)
                     }

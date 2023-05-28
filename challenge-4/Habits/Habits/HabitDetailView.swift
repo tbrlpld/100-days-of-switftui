@@ -12,17 +12,13 @@ struct HabitDetailView: View {
     
     var body: some View {
         VStack(alignment: .leading){
-            Text(self.habit.name)
-                .font(.largeTitle)
-                .bold()
-                .padding(.bottom, 15)
             Text(self.habit.description)
                 .font(.subheadline)
             Spacer()
             Text("Actions go here.")
             Spacer()
         }
-        .padding(10)
+        .padding()
     }
 }
 
@@ -37,8 +33,8 @@ struct HabitDetailView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             HabitDetailView(habit: self.habit)
-//                .navigationTitle(self.habit.name)
-                .navigationBarTitleDisplayMode(.inline)
+                .navigationTitle(self.habit.name)
+                .navigationBarTitleDisplayMode(.large)
         }
     }
 }

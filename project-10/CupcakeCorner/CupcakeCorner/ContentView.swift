@@ -8,54 +8,21 @@
 import SwiftUI
 
 
-struct Response: Codable {
-    var results: [Result]
-}
-
-struct Result: Codable {
-    var trackId: Int
-    var trackName: String
-    var collectionName: String
-}
-
-
 struct ContentView: View {
-    @State private var results = [Result]()
-    
     var body: some View {
-        List(self.results, id: \.trackId) { result in
-            VStack {
-                Text(result.trackName)
+        AsyncImage(url: URL(string: "https://hws.dev/img/logo.png")) { phase in
+            if let image = phase.image {
+                image
+                    .resizable()
+                    .scaledToFit()
+            } else if phase.error != nil {
+                Text("Error loading image.")
+            } else {
+                // Not loaded, not error -> loading
+                ProgressView()
             }
         }
-        .task {
-            print("Staring background tasks.")
-            await self.getSongs()
-        }
-    }
-    
-    func getSongs() async {
-        print("Getting songs.")
-        guard let url = URL(string: "https://itunes.apple.com/search?term=taylow+swift&entity=song") else {
-            print("Bad URL")
-            return
-        }
-        
-        guard let (JSONData, _) = try? await URLSession.shared.data(from: url) else {
-            print("Connection error.")
-            return
-        }
-        print(String(data: JSONData, encoding: .utf8) ?? "")
-        
-        let decoder = JSONDecoder()
-        guard let data = try? decoder.decode(Response.self, from: JSONData) else {
-            print("Decoding issue.")
-            return
-        }
-        
-        self.results = data.results
-        
-        print("Done getting songs.")
+        .frame(width: 200, height: 200)
     }
 }
 

@@ -8,38 +8,54 @@
 import SwiftUI
 
 
-class User: ObservableObject, Codable {
-    enum CodingKeys: CodingKey {
-        case name
-    }
-    
-    @Published var name = "Jane Doe"
-    
-    required init(from decoder: Decoder) throws {
-        // Get the decoded data where we expect the data to have all the keys from our "CodingKeys" enum.
-        let container = try decoder.container(keyedBy: Self.CodingKeys.self)
-        // Set the object values from the decoded data.
-        self.name = try container.decode(String.self, forKey: Self.CodingKeys.name)
-    }
-    
-    func encode(to encoder: Encoder) throws {
-        // Create a container for the data we want to encode from the encoder that needs to be able to hold all the keys defined in our coding keys enum.
-        var container = try encoder.container(keyedBy: Self.CodingKeys.self)
-        // Encode the individual values.
-        try container.encode(self.name, forKey: Self.CodingKeys.name)
-        
-    }
+struct Response: Codable {
+    var results: [Result]
 }
 
+struct Result: Codable {
+    var trackId: Int
+    var trackName: String
+    var collectionName: String
+}
+
+
 struct ContentView: View {
+    @State private var results = [Result]()
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        List(self.results, id: \.trackId) { result in
+            VStack {
+                Text(result.trackName)
+            }
         }
-        .padding()
+        .task {
+            print("Staring background tasks.")
+            await self.getSongs()
+        }
+    }
+    
+    func getSongs() async {
+        print("Getting songs.")
+        guard let url = URL(string: "https://itunes.apple.com/search?term=taylow+swift&entity=song") else {
+            print("Bad URL")
+            return
+        }
+        
+        guard let (JSONData, _) = try? await URLSession.shared.data(from: url) else {
+            print("Connection error.")
+            return
+        }
+        print(String(data: JSONData, encoding: .utf8) ?? "")
+        
+        let decoder = JSONDecoder()
+        guard let data = try? decoder.decode(Response.self, from: JSONData) else {
+            print("Decoding issue.")
+            return
+        }
+        
+        self.results = data.results
+        
+        print("Done getting songs.")
     }
 }
 

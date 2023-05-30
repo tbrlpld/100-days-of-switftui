@@ -9,20 +9,38 @@ import SwiftUI
 
 
 struct ContentView: View {
+    @StateObject var order = Order()
+    
     var body: some View {
-        AsyncImage(url: URL(string: "https://hws.dev/img/logo.png")) { phase in
-            if let image = phase.image {
-                image
-                    .resizable()
-                    .scaledToFit()
-            } else if phase.error != nil {
-                Text("Error loading image.")
-            } else {
-                // Not loaded, not error -> loading
-                ProgressView()
+        NavigationStack {
+            Form {
+                Section {
+                    Picker("Type", selection: self.$order.type) {
+                        ForEach(Order.types.indices) { index in
+                            Text(Order.types[index])
+                        }
+                    }
+                    
+                    Stepper("Quantity: \(self.order.quantity)", value: self.$order.quantity, in: 3...20)
+                }
+                
+                Section {
+                    Toggle(isOn: self.$order.enableSpecialRequests.animation()) {
+                        Text("Special requests")
+                    }
+                    
+                    if self.order.enableSpecialRequests {
+                        Toggle(isOn: self.$order.addSprinkles) {
+                            Text("Add sprinkles")
+                        }
+                        Toggle(isOn: self.$order.extraFrosting) {
+                            Text("Extra frosting")
+                        }
+                    }
+                }
             }
+            .navigationTitle("Cupcake Corner")
         }
-        .frame(width: 200, height: 200)
     }
 }
 

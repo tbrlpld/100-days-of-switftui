@@ -30,6 +30,26 @@ class Order: ObservableObject {
     @Published var city = ""
     @Published var zip = ""
     
+    var cost: Double {
+        // $2 base cost per cupcake
+        var costEach = 2.0
+        
+        // $1 extra for Chocolate and Rainbow
+        if self.type > 1 {
+            costEach += 1.0
+        }
+        
+        if self.addSprinkles {
+            costEach += 0.5
+        }
+        
+        if self.extraFrosting {
+            costEach += 1.0
+        }
+        
+        return Double(self.quantity) * costEach
+    }
+    
     func isAddressValid() -> Bool {
         if (
             self.name.isEmpty

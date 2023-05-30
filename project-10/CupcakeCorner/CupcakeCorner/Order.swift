@@ -24,4 +24,21 @@ class Order: ObservableObject {
     }
     @Published var addSprinkles = false
     @Published var extraFrosting = false
+    
+    @Published var name = ""
+    @Published var streetAddress = ""
+    @Published var city = ""
+    @Published var zip = ""
+    
+    func isAddressValid() -> Bool {
+        if (
+            self.name.isEmpty
+            || self.streetAddress.isEmpty
+            || self.city.isEmpty
+            || self.zip.isEmpty
+        ) {
+            return false
+        }
+        return true
+    }
 }

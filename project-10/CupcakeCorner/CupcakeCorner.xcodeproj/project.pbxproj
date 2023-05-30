@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		00843C7E2A257B7F000B2192 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00843C7D2A257B7F000B2192 /* Order.swift */; };
+		00843C802A258015000B2192 /* AddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00843C7F2A258015000B2192 /* AddressView.swift */; };
 		00BA3E672A239FAA0096705B /* CupcakeCornerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BA3E662A239FAA0096705B /* CupcakeCornerApp.swift */; };
 		00BA3E692A239FAA0096705B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BA3E682A239FAA0096705B /* ContentView.swift */; };
 		00BA3E6B2A239FAD0096705B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00BA3E6A2A239FAD0096705B /* Assets.xcassets */; };
@@ -16,6 +17,7 @@
 
 /* Begin PBXFileReference section */
 		00843C7D2A257B7F000B2192 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
+		00843C7F2A258015000B2192 /* AddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressView.swift; sourceTree = "<group>"; };
 		00BA3E632A239FAA0096705B /* CupcakeCorner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CupcakeCorner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		00BA3E662A239FAA0096705B /* CupcakeCornerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CupcakeCornerApp.swift; sourceTree = "<group>"; };
 		00BA3E682A239FAA0096705B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -54,6 +56,7 @@
 			isa = PBXGroup;
 			children = (
 				00BA3E682A239FAA0096705B /* ContentView.swift */,
+				00843C7F2A258015000B2192 /* AddressView.swift */,
 				00BA3E662A239FAA0096705B /* CupcakeCornerApp.swift */,
 				00843C7D2A257B7F000B2192 /* Order.swift */,
 				00BA3E6A2A239FAD0096705B /* Assets.xcassets */,
@@ -141,6 +144,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				00843C7E2A257B7F000B2192 /* Order.swift in Sources */,
+				00843C802A258015000B2192 /* AddressView.swift in Sources */,
 				00BA3E692A239FAA0096705B /* ContentView.swift in Sources */,
 				00BA3E672A239FAA0096705B /* CupcakeCornerApp.swift in Sources */,
 			);

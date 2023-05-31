@@ -8,7 +8,18 @@
 import SwiftUI
 
 
-class Order: ObservableObject {
+class Order: ObservableObject, Codable {
+    enum CodingKeys: CodingKey {
+        case type
+        case quantity
+        case addSprinkles
+        case extraFrosting
+        case name
+        case streetAddress
+        case city
+        case zip
+    }
+    
     static let types = ["Vanilla", "Strawberry", "Chocolate", "Rainbow"]
     
     @Published var type = 0
@@ -29,6 +40,41 @@ class Order: ObservableObject {
     @Published var streetAddress = ""
     @Published var city = ""
     @Published var zip = ""
+    
+    init () {
+        // Noop initializer for a default object.
+    }
+    
+    required init(from decoder: Decoder) throws {
+        // Initialize object with data from decoder.
+        let container = try decoder.container(keyedBy: Self.CodingKeys.self)
+
+        self.type = try container.decode(Int.self, forKey: .type)
+        self.quantity = try container.decode(Int.self, forKey: .quantity)
+        
+        self.addSprinkles = try container.decode(Bool.self, forKey: .addSprinkles)
+        self.extraFrosting = try container.decode(Bool.self, forKey: .extraFrosting)
+        
+        self.name = try container.decode(String.self, forKey: .name)
+        self.streetAddress = try container.decode(String.self, forKey: .streetAddress)
+        self.city = try container.decode(String.self, forKey: .city)
+        self.zip = try container.decode(String.self, forKey: .zip)
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: Self.CodingKeys.self)
+        
+        try container.encode(self.type, forKey: .type)
+        try container.encode(self.quantity, forKey: .quantity)
+        
+        try container.encode(self.addSprinkles, forKey: .addSprinkles)
+        try container.encode(self.extraFrosting, forKey: .extraFrosting)
+        
+        try container.encode(self.name, forKey: .name)
+        try container.encode(self.streetAddress, forKey: .streetAddress)
+        try container.encode(self.city, forKey: .city)
+        try container.encode(self.zip, forKey: .zip)
+    }
     
     var cost: Double {
         // $2 base cost per cupcake

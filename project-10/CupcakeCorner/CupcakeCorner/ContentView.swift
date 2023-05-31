@@ -16,7 +16,7 @@ struct ContentView: View {
             Form {
                 Section {
                     Picker("Type", selection: self.$order.type) {
-                        ForEach(Order.types.indices) { index in
+                        ForEach(Order.types.indices, id: \.self) { index in
                             Text(Order.types[index])
                         }
                     }

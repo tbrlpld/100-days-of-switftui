@@ -8,7 +8,11 @@
 import SwiftUI
 
 struct CheckoutView: View {
-    @ObservedObject var order: Order
+    @ObservedObject var orderData: OrderData
+    
+    var order: Order {
+        self.orderData.order
+    }
     
     @State private var orderSubmissionResponseMessage = ""
     @State private var orderSubmissionResponseTitle = ""
@@ -89,7 +93,7 @@ struct CheckoutView: View {
 struct CheckoutView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            CheckoutView(order: Order())
+            CheckoutView(orderData: OrderData())
         }
     }
 }

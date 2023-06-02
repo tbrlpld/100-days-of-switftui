@@ -10,8 +10,9 @@ import SwiftUI
 struct CheckoutView: View {
     @ObservedObject var order: Order
     
-    @State private var orderConfirmationMessage = ""
-    @State private var isShowingConfirmationMessage = false
+    @State private var orderSubmissionResponseMessage = ""
+    @State private var orderSubmissionResponseTitle = ""
+    @State private var isShowingOrderSubmissionResponse = false
     
     var body: some View {
         VStack {
@@ -43,10 +44,10 @@ struct CheckoutView: View {
         }
         .padding(.horizontal)
         .navigationTitle("Checkout")
-        .alert("Success", isPresented: self.$isShowingConfirmationMessage) {
+        .alert(self.orderSubmissionResponseTitle, isPresented: self.$isShowingOrderSubmissionResponse) {
             Button("Ok") {}
         } message: {
-            Text(self.orderConfirmationMessage)
+            Text(self.orderSubmissionResponseMessage)
         }
     }
     
@@ -63,16 +64,23 @@ struct CheckoutView: View {
         
         var request = URLRequest(url: url)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = "POST"
+        
+        // Randomness to simulate a flaky connection. Requests that are not POST will fail.
+        if Bool.random() {
+            request.httpMethod = "POST"
+        }
         
         do {
             let (responseData, _) = try await URLSession.shared.upload(for: request, from: encodedOrder)
             let decoder = JSONDecoder()
             let decodedOrder = try decoder.decode(Order.self, from: responseData)
-            self.orderConfirmationMessage = "Your order for \(decodedOrder.quantity)x \(Order.types[decodedOrder.type].lowercased()) cupcakes was successfully placed."
-            self.isShowingConfirmationMessage = true
+            self.orderSubmissionResponseTitle = "Success"
+            self.orderSubmissionResponseMessage = "Your order for \(decodedOrder.quantity)x \(Order.types[decodedOrder.type].lowercased()) cupcakes was successfully placed."
+            self.isShowingOrderSubmissionResponse = true
         } catch {
-            print("Checkout failed.")
+            self.orderSubmissionResponseTitle = "Error"
+            self.orderSubmissionResponseMessage = "Sorry, something went wrong when we tried to place your order. Please try again."
+            self.isShowingOrderSubmissionResponse = true
         }
     }
     

@@ -98,13 +98,17 @@ class Order: ObservableObject, Codable {
     
     func isAddressValid() -> Bool {
         if (
-            self.name.isEmpty
-            || self.streetAddress.isEmpty
-            || self.city.isEmpty
-            || self.zip.isEmpty
+            self.stringIsNotEmpty(self.name)
+            && self.stringIsNotEmpty(self.streetAddress)
+            && self.stringIsNotEmpty(self.city)
+            && self.stringIsNotEmpty(self.zip)
         ) {
-            return false
+            return true
         }
-        return true
+        return false
+    }
+    
+    func stringIsNotEmpty(_ string: String) -> Bool {
+        return !string.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 }

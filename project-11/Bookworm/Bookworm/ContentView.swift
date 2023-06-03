@@ -28,7 +28,7 @@ struct ContentView: View {
                     }
                 }
                 .sheet(isPresented: self.$isShowingAddBookView) {
-                    Text("Hello Sheet")
+                    AddBookView()
                 }
         }
     }

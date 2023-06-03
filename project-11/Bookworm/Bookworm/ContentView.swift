@@ -7,15 +7,28 @@
 
 import SwiftUI
 
-struct ContentView: View {
+
+struct CustomButton: View {
+    @Binding var isOn: Bool
+   
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        Button("Tap me"){
+            self.isOn.toggle()
         }
         .padding()
+        .background(self.isOn ? .red : .blue)
+        .foregroundColor(.white)
+    }
+}
+
+struct ContentView: View {
+    @State var rememberMe = false
+    
+    var body: some View {
+        VStack {
+            CustomButton(isOn: self.$rememberMe)
+            Text(self.rememberMe ? "On" : "Off")
+        }
     }
 }
 

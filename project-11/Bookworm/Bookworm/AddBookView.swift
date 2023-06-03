@@ -45,13 +45,6 @@ struct AddBookView: View {
 
                 Section {
                     RatingView(rating: self.$rating)
-//                    Picker("Rating", selection: self.$rating) {
-//                        ForEach(Self.ratingRange, id: \.self) { rating in
-//                            Text(String(rating))
-//                        }
-//                    }
-//                    .pickerStyle(.segmented)
-
                     TextEditor(text: self.$review)
                 } header: {
                     Text("Your review")

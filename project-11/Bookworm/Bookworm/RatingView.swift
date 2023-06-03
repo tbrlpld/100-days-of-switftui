@@ -22,10 +22,16 @@ struct RatingView: View {
             if !self.label.isEmpty {
                 Text(self.label)
             }
-            ForEach(0..<self.maximumRating + 1, id: \.self) { number in
+            ForEach(1..<self.maximumRating + 1, id: \.self) { number in
                 self.getImage(currentRating: number)
                     .onTapGesture {
-                        self.rating = number
+                        if number == 1 && self.rating == 1 {
+                            // If the tapped number is 1 and the rating already is at 1, we set it to zero.
+                            // This allows us to represent 0 rating with really 0 active images.
+                            self.rating = 0
+                        } else {
+                            self.rating = number
+                        }
                     }
             }
         }
@@ -33,12 +39,12 @@ struct RatingView: View {
 
     func getImage(currentRating: Int) -> some View {
         if currentRating <= self.rating {
-            var image = self.onImage
-            var result = image.foregroundColor(self.onColor)
+            let image = self.onImage
+            let result = image.foregroundColor(self.onColor)
             return result
         } else {
-            var image = self.offImage ?? self.onImage
-            var result = image.foregroundColor(self.offColor)
+            let image = self.offImage ?? self.onImage
+            let result = image.foregroundColor(self.offColor)
             return result
         }
     }

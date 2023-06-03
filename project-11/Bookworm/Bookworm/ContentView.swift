@@ -25,7 +25,7 @@ struct ContentView: View {
                             .font(.subheadline)
                     }
                     Spacer()
-                    Text(String(book.rating))
+                    EmojiRatingView(rating: book.rating)
                 }
             }
                 .navigationTitle("Bookworm")

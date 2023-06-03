@@ -17,15 +17,19 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             List(self.books) { book in
-                HStack {
-                    VStack(alignment: .leading) {
-                        Text(book.title ?? "n/a")
-                            .font(.headline)
-                        Text(book.author ?? "n/a")
-                            .font(.subheadline)
+                NavigationLink {
+                    Text("Hello")
+                } label: {
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text(book.title ?? "n/a")
+                                .font(.headline)
+                            Text(book.author ?? "n/a")
+                                .font(.subheadline)
+                        }
+                        Spacer()
+                        EmojiRatingView(rating: book.rating)
                     }
-                    Spacer()
-                    EmojiRatingView(rating: book.rating)
                 }
             }
                 .navigationTitle("Bookworm")

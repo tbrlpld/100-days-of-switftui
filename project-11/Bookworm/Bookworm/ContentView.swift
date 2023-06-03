@@ -16,7 +16,18 @@ struct ContentView: View {
     
     var body: some View {
         NavigationStack {
-            Text("\(books.count) Books read")
+            List(self.books) { book in
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text(book.title ?? "n/a")
+                            .font(.headline)
+                        Text(book.author ?? "n/a")
+                            .font(.subheadline)
+                    }
+                    Spacer()
+                    Text(String(book.rating))
+                }
+            }
                 .navigationTitle("Bookworm")
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {

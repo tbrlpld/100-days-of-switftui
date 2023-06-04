@@ -60,6 +60,7 @@ struct AddBookView: View {
 
     func saveBook() {
         let book = Book(context: self.moc)
+        
         book.id = UUID()
         book.title = self.title
         book.author = self.author

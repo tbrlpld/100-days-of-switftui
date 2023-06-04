@@ -19,29 +19,36 @@ struct ContentView: View {
     
     var body: some View {
         NavigationStack {
-            List(self.books) { book in
-                NavigationLink {
-                    BookDetailView(book: book)
-                } label: {
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text(book.title ?? "n/a")
-                                .font(.headline)
-                            Text(book.author ?? "n/a")
-                                .font(.subheadline)
+            List {
+                ForEach(self.books) { book in
+                    NavigationLink {
+                        BookDetailView(book: book)
+                    } label: {
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text(book.title ?? "n/a")
+                                    .font(.headline)
+                                Text(book.author ?? "n/a")
+                                    .font(.subheadline)
+                            }
+                            Spacer()
+                            EmojiRatingView(rating: book.rating)
                         }
-                        Spacer()
-                        EmojiRatingView(rating: book.rating)
                     }
                 }
+                .onDelete(perform: self.deleteBooks)
             }
                 .navigationTitle("Bookworm")
                 .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        EditButton()
+                    }
+
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button {
                             self.isShowingAddBookView.toggle()
                         } label: {
-                            Label("Add book", systemImage: "plus")
+                                Label("Add book", systemImage: "plus")
                         }
                     }
                 }
@@ -49,6 +56,17 @@ struct ContentView: View {
                     AddBookView()
                 }
         }
+    }
+
+    func deleteBooks(at offsets: IndexSet) {
+        for index in offsets {
+            let book = self.books[index]
+            print("Deleting \(book.title ?? "n/a")")
+
+            self.moc.delete(book)
+        }
+
+        try? self.moc.save()
     }
 }
 

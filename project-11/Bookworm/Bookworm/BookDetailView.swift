@@ -10,6 +10,11 @@ import SwiftUI
 struct BookDetailView: View {
     let book: Book
 
+    @State private var isShowingDeleteAlert = false
+
+    @Environment(\.managedObjectContext) var moc
+    @Environment(\.dismiss) var dimiss
+
     var body: some View {
         ScrollView {
             VStack {
@@ -39,5 +44,27 @@ struct BookDetailView: View {
             .padding()
         }
         .navigationTitle(self.book.title ?? "n/a")
+        .toolbar {
+            Button {
+                self.isShowingDeleteAlert = true
+            } label: {
+                Label("Delete this book", systemImage: "trash")
+                    .foregroundColor(.red)
+            }
+        }
+        .alert("Delete book", isPresented: self.$isShowingDeleteAlert) {
+            Button("Delete", role: .destructive, action: self.deleteBook)
+            Button("Cancel", role: .cancel) {}
+        } message: {
+            Text("Are you sure you want to delete \"\(self.book.title ?? "n/a")\"?")
+        }
+    }
+
+    func deleteBook() {
+        self.moc.delete(self.book)
+
+        try? self.moc.save()
+    
+        self.dimiss()
     }
 }

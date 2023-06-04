@@ -18,7 +18,7 @@ struct ContentView: View {
         NavigationStack {
             List(self.books) { book in
                 NavigationLink {
-                    Text("Hello")
+                    BookDetailView(book: book)
                 } label: {
                     HStack {
                         VStack(alignment: .leading) {
@@ -49,8 +49,3 @@ struct ContentView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}

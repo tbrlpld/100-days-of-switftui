@@ -72,8 +72,3 @@ struct AddBookView: View {
     }
 }
 
-struct AddBookView_Previews: PreviewProvider {
-    static var previews: some View {
-        AddBookView()
-    }
-}

@@ -35,6 +35,7 @@ struct ContentView: View {
                             EmojiRatingView(rating: book.rating)
                         }
                     }
+                    .listRowBackground(book.rating <= 1 ? Color(.systemBrown).opacity(0.10) : nil)
                 }
                 .onDelete(perform: self.deleteBooks)
             }

@@ -59,6 +59,11 @@ struct AddBookView: View {
     }
 
     func saveBook() {
+        guard self.isDataValid() == true else {
+            print("Data is not valid.")
+            return
+        }
+
         let book = Book(context: self.moc)
 
         book.id = UUID()
@@ -70,6 +75,26 @@ struct AddBookView: View {
 
         try? self.moc.save()
         self.dismiss()
+    }
+
+    func isDataValid() -> Bool {
+        if (
+            self.title.isEmptyOrWhitespace
+            || self.author.isEmptyOrWhitespace
+            || self.genre.isEmptyOrWhitespace
+            || self.review.isEmptyOrWhitespace
+        ) {
+            return false
+        }
+        return true
+    }
+}
+
+
+extension String {
+    var isEmptyOrWhitespace: Bool {
+        let trimmedString = self.trimmingCharacters(in: .whitespacesAndNewlines)
+        return trimmedString.isEmpty
     }
 }
 

@@ -72,6 +72,7 @@ struct AddBookView: View {
         book.genre = self.genre
         book.review = self.review
         book.rating = Int16(self.rating)
+        book.reviewDate = Date.now
 
         try? self.moc.save()
         self.dismiss()

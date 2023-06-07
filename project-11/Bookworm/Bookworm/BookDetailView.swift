@@ -40,6 +40,13 @@ struct BookDetailView: View {
                     .padding(.bottom)
 
                 RatingView(rating: .constant(Int(self.book.rating)))
+                    .padding(.bottom)
+
+                if let date = self.book.reviewDate {
+                    Text("Reviewed")
+                    Text(date.formatted(date: .long, time: .omitted))
+                        .font(.subheadline)
+                }
             }
             .padding()
         }

@@ -8,6 +8,28 @@
 import SwiftUI
 import CoreData
 
+
+struct ItemView: View {
+    public var item: Item
+    var body: some View {
+        VStack {
+            Text("Item at \(item.timestamp!, formatter: itemFormatter)")
+            ForEach(self.othersArray) { _ in
+                Text("This")
+            }
+        }
+    }
+
+    var othersArray: [Other]  {
+        if let others = self.item.others?.allObjects as? [Other] {
+            return others
+        }
+        return [Other]()
+    }
+
+
+}
+
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
@@ -21,7 +43,7 @@ struct ContentView: View {
             List {
                 ForEach(items) { item in
                     NavigationLink {
-                        Text("Item at \(item.timestamp!, formatter: itemFormatter)")
+                        ItemView(item: item)
                     } label: {
                         Text(item.timestamp!, formatter: itemFormatter)
                     }

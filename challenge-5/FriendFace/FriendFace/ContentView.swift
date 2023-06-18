@@ -20,8 +20,30 @@ struct ContentView: View {
         VStack{
             Text("Hello World")
         }
+        .onAppear(perform: self.triggerDataLoad)
     }
 
+    func triggerDataLoad() -> Void {
+        Task {
+            await self.loadData()
+        }
+    }
+
+    func loadData() async -> Void {
+        print("Loading...")
+        let friendFaceEndpoint = "https://www.hackingwithswift.com/samples/friendface.json"
+
+        guard let url = URL(string: friendFaceEndpoint) else {
+            fatalError("Could not generate URL from endpoint string.")
+        }
+
+        guard let (data, _) = try? await URLSession.shared.data(from: url) else {
+            fatalError("Could not retrieve data from endpoint.")
+        }
+
+        print(type(of: data))
+        print(String(decoding: data, as: UTF8.self))
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		006C96182A41373200CD930E /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006C96172A41373200CD930E /* Models.swift */; };
 		00C5658D2A3F6C11006C0D1E /* FriendFaceApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C5658C2A3F6C11006C0D1E /* FriendFaceApp.swift */; };
 		00C5658F2A3F6C11006C0D1E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C5658E2A3F6C11006C0D1E /* ContentView.swift */; };
 		00C565912A3F6C14006C0D1E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00C565902A3F6C14006C0D1E /* Assets.xcassets */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		006C96172A41373200CD930E /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		00C565892A3F6C11006C0D1E /* FriendFace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FriendFace.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		00C5658C2A3F6C11006C0D1E /* FriendFaceApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendFaceApp.swift; sourceTree = "<group>"; };
 		00C5658E2A3F6C11006C0D1E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -57,6 +59,7 @@
 			children = (
 				00C5658C2A3F6C11006C0D1E /* FriendFaceApp.swift */,
 				00C5658E2A3F6C11006C0D1E /* ContentView.swift */,
+				006C96172A41373200CD930E /* Models.swift */,
 				00C565902A3F6C14006C0D1E /* Assets.xcassets */,
 				00C565952A3F6C14006C0D1E /* Persistence.swift */,
 				00C565972A3F6C14006C0D1E /* FriendFace.xcdatamodeld */,
@@ -147,6 +150,7 @@
 				00C5658F2A3F6C11006C0D1E /* ContentView.swift in Sources */,
 				00C565992A3F6C14006C0D1E /* FriendFace.xcdatamodeld in Sources */,
 				00C5658D2A3F6C11006C0D1E /* FriendFaceApp.swift in Sources */,
+				006C96182A41373200CD930E /* Models.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

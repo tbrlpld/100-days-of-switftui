@@ -37,12 +37,27 @@ struct ContentView: View {
             fatalError("Could not generate URL from endpoint string.")
         }
 
+
         guard let (data, _) = try? await URLSession.shared.data(from: url) else {
             fatalError("Could not retrieve data from endpoint.")
         }
 
-        print(type(of: data))
-        print(String(decoding: data, as: UTF8.self))
+        print("Done loading.")
+
+//        print(String(decoding: data, as: UTF8.self))
+
+        print("Decoding")
+
+        let decoder = JSONDecoder()
+        guard let people = try? decoder.decode([Person].self, from: data) else {
+//            fatalError("Coud not decode response data.")
+            print("Could not decode.")
+            return
+        }
+
+        print("Done decoding.")
+
+        print("Got \(people.count) people")
     }
 }
 
@@ -52,3 +67,5 @@ struct ContentView_Previews: PreviewProvider {
         //        ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }
+
+
